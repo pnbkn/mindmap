@@ -1,4 +1,23 @@
 body {
   margin: 2rem;
-  font-family: impact;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.login, .register {
+  display: flex;
+  justify-content: space-around;
+  font-size: .75rem;
+  margin: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 0.075rem solid #ccc;
+  border-radius: 1.5rem;
+}
+
+.login input, button, .register input, button {
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  width: 20rem;
+  font-size: .75rem;
 }
