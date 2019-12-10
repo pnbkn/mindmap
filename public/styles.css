@@ -1,4 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 2rem;
   font-family: impact;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+  width: 100%;
+}
+.chat > form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 4rem;
+}
+.chat,
+input {
+  width: 100%;
+  height: 2rem;
+}
+.messages {
+  width: 100%;
+  margin: 2rem 0;
+}
+button {
+  height: 2.25rem;
+  padding: 0.5rem;
 }

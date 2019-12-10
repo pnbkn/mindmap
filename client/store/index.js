@@ -1,11 +1,11 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
 
-const user = (state=[], action) => async dispatch => {
-    return state
-}
+const user = (state = [], action) => async dispatch => {
+  return state;
+};
 
-const reducer = combineReducers({user})
-const store = createStore(reducer, applyMiddleware(thunkMiddleware))
+const reducer = combineReducers({ user });
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
-export default store
+export default store;
