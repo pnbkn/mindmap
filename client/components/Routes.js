@@ -1,20 +1,19 @@
-import React, {Component} from 'react'
-import { Switch, Route } from 'react-router-dom'
-import {Home} from './Home/Home'
-import { Login } from './Home/Login';
-import { Register } from './Home/Register';
+import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
+import { Home } from "./Home/Home";
+import Chat from "./Chat/Chat";
+import { Login } from "./Home/Login";
+import { Register } from "./Home/Register";
 
 class Routes extends Component {
-    render(){
-        return (
-            <Switch>
-                <Route exact path='/login' component = { Login } />
-                <Route exact path='/register' component = { Register } />
-                <Route path='/' component={Home} />
-                <Route component={Home} />
-            </Switch>
-        )
-    }
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/subject" component={Chat} />
+      </Switch>
+    );
+  }
 }
 
-export default Routes
+export default Routes;
