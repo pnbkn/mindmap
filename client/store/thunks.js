@@ -2,6 +2,8 @@ import {
   setUsers,
   _createUser,
   _updateUser,
+  _createNode,
+  _setNodes,
   setLoginError,
   setLoginSuccess
 } from "./actions.js";
@@ -18,6 +20,20 @@ const createUser = user => {
   return async dispatch => {
     const created = (await axios.post("/api/register", user)).data;
     dispatch(_createUser(created));
+  };
+};
+
+const getNodes = () => {
+  return async dispatch => {
+    const nodes = (await axios.get("api/nodes")).data;
+    dispatch(setUsers(nodes));
+  };
+};
+
+const createNode = node => {
+  return async dispatch => {
+    const addNote = (await axios.post("/api/nodes", node)).data;
+    dispatch(_createNode(addNode));
   };
 };
 
@@ -39,4 +55,4 @@ const onLogin = user => {
   };
 };
 
-export { getUsers, createUser, updateUser, onLogin };
+export { getUsers, createUser, updateUser, onLogin, createNode, getNodes };

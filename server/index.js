@@ -7,6 +7,8 @@ const session = require("express-session");
 const db = require("./db");
 const socketIO = require("socket.io");
 
+app.use("/api", require("./api/index"));
+
 const server = app.listen(PORT, () =>
   console.log(`kicking it on port ${PORT}`)
 );
@@ -32,4 +34,8 @@ app.get("/styles.css", (req, res, next) => {
 
 // });
 
-module.exports = app;
+// db.syncAndSeed().then(() => {
+// const server = app.listen(PORT, () =>
+//   console.log(`kicking it on port ${PORT}`)
+// );
+// });
