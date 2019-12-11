@@ -1,4 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 2rem;
-  font-family: impact;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+  width: 100%;
+}
+.chat > form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 4rem;
+}
+.chat,
+input {
+  width: 100%;
+  height: 2rem;
+}
+.messages {
+  width: 100%;
+  margin: 2rem 0;
+}
+.chat,
+button {
+  height: 2.25rem;
+  padding: 0.5rem;
+}
+
+.login,
+.register {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
+  margin: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 0.075rem solid #ccc;
+  border-radius: 1.5rem;
+}
+
+.login input,
+button,
+.register input,
+button {
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  width: 20rem;
+  font-size: 0.75rem;
 }

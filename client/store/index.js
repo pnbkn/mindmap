@@ -1,11 +1,9 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
+import reducer from "./reducer.js";
+import { getUsers, createUser, updateUser, onLogin } from "./thunks.js";
 
-const user = (state=[], action) => async dispatch => {
-    return state
-}
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
-const reducer = combineReducers({user})
-const store = createStore(reducer, applyMiddleware(thunkMiddleware))
-
-export default store
+export default store;
+export { getUsers, createUser, updateUser, onLogin };
