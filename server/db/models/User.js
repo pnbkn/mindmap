@@ -2,35 +2,26 @@ const crypto = require("crypto");
 const Sequelize = require("sequelize");
 const db = require("../db");
 const conn = require("../conn");
-
 const { STRING, UUID, UUIDV4, BOOLEAN } = Sequelize;
 
-const id = {
-  type: UUID,
-  primaryKey: true,
-  unique: true,
-  defaultValue: UUIDV4
-};
-
 const User = conn.define("user", {
-  id: id,
-  firstName: {
+  id: {
+    type: UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4
+  },
+  name: {
     type: STRING,
     allowNull: false,
     validate: {
       notEmpty: true
     }
   },
-  lastName: {
-    type: STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
+
   email: {
     type: STRING,
     allowNull: false,
+    unique: true,
     validate: {
       isEmail: true
     }
@@ -39,61 +30,41 @@ const User = conn.define("user", {
     type: BOOLEAN,
     defaultValue: false
   },
-
   password: {
     type: STRING,
-    // Making `.password` act like a func hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
-    get() {
-      return () => this.getDataValue("password");
-    }
+    allowNull: false
   },
   salt: {
-    type: STRING,
-    // Making `.salt` act like a function hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
-    get() {
-      return () => this.getDataValue("salt");
-    }
+    type: STRING
   }
 });
+
+const getRandomString = function(num) {
+  return crypto
+    .randomBytes(Math.ceil(num / 2))
+    .toString("hex")
+    .slice(0, num);
+};
+
+const sha256 = function(pw, salt) {
+  let hash = crypto.createHmac("sha256", salt);
+  hash.update(pw);
+  let value = hash.digest("hex");
+  return value;
+};
+
+saltHashPassword = user => {
+  if (user.changed("password")) {
+    user.salt = getRandomString(10);
+    user.password = sha256(user.password, user.salt);
+  }
+};
+
+User.prototype.correctPassword = function(pwd) {
+  return sha256(pwd, this.salt);
+};
+
+User.beforeCreate(saltHashPassword);
+User.beforeUpdate(saltHashPassword);
 
 module.exports = User;
-
-/**
- * instanceMethods
- */
-User.prototype.correctPassword = function(candidatePwd) {
-  return User.encryptPassword(candidatePwd, this.salt()) === this.password();
-};
-
-/**
- * classMethods
- */
-User.generateSalt = function() {
-  return crypto.randomBytes(16).toString("base64");
-};
-
-User.encryptPassword = function(plainText, salt) {
-  return crypto
-    .createHash("RSA-SHA256")
-    .update(plainText)
-    .update(salt)
-    .digest("hex");
-};
-
-/**
- * hooks
- */
-const setSaltAndPassword = user => {
-  if (user.changed("password")) {
-    user.salt = User.generateSalt();
-    user.password = User.encryptPassword(user.password(), user.salt());
-  }
-};
-
-User.beforeCreate(setSaltAndPassword);
-User.beforeUpdate(setSaltAndPassword);
-User.beforeBulkCreate(users => {
-  users.forEach(setSaltAndPassword);
-});

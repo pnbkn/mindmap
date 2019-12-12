@@ -1,4 +1,3 @@
-const router = require("express").Router();
 const express = require("express");
 const app = express();
 // const http = require("http");
@@ -9,12 +8,8 @@ const db = require("./db/db");
 const socketIO = require("socket.io");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api", require("./api"));
-
-// const server = app.listen(PORT, () =>
-//   console.log(`kicking it on port ${PORT}`)
-// );
+// const routes = require("./api/index");
 
 db.syncAndSeed().then(() => {
   const server = app.listen(PORT, () =>
@@ -32,14 +27,3 @@ app.get("/", (req, res, next) => {
 app.get("/styles.css", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/styles.css"));
 });
-
-// db.sync()
-//   .then(() => {
-
-// });
-
-// db.syncAndSeed().then(() => {
-// const server = app.listen(PORT, () =>
-//   console.log(`kicking it on port ${PORT}`)
-// );
-// });

@@ -7,3 +7,4 @@ const Node = require('./Node')
 module.exports = {
     User, Subject, Node
 }
+
