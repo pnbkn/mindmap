@@ -10,10 +10,15 @@ const Node = require('./models/Node');
 //Associations
 Subject.belongsTo(User);
 User.hasMany(Subject);
+
 Node.belongsTo(User);
 User.hasMany(Node);
+
 Node.belongsTo(Subject);
 Subject.hasMany(Node);
+
+Node.belongsTo(Node, {as: 'parent'})
+Node.hasMany(Node, {as: 'child'})
 
 module.exports = {
   syncAndSeed,
