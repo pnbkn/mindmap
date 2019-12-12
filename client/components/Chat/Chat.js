@@ -9,7 +9,8 @@ class Chat extends Component {
     super(props);
     this.state = {
       room: "APP",
-      body: ""
+      body: "",
+      subjectId: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,23 +32,31 @@ class Chat extends Component {
   handleSubmit = async ev => {
     ev.preventDefault();
     //creates msg in db
-    const node = this.state.body;
+    const node = {
+      body: this.state.body,
+      subjectId: this.props.match.params.id
+    };
     await this.props.postNode(node);
     //sends the body to the socket event emitter
     console.log("SUBMIT ", this.state.body);
     socket.emit(this.state.room, { body: this.state.body });
 
-    this.setState({ room: "App", body: "" });
+    this.setState({ room: "App", body: "", subjectId: "" });
   };
   render() {
-    console.log("PROPS ", this.props.nodes);
+    console.log("PROPS Nodes ", this.props.nodes);
+    console.log("PROPS SUBJECTS ", this.props);
 
     return (
       <div className={"chat"}>
         <ul className={"messages"}>
-          {this.props.nodes.map(node => (
-            <li key={node.id}>{node.body}</li>
-          ))}
+          {this.props.nodes.map(node =>
+            this.props.match.params.id === node.subjectId ? (
+              <li key={node.id}>{node.body}</li>
+            ) : (
+              ""
+            )
+          )}
           <br />
           <br />
           <form method="post" onSubmit={this.handleSubmit}>

@@ -34,7 +34,7 @@ const createNode = payload => {
   console.log("THUNKS START ", payload);
 
   return async dispatch => {
-    const newIdea = await axios.post("/api/nodes", { body: payload });
+    const newIdea = await axios.post("/api/nodes", payload);
     console.log("THUNKS DISPATCH ", newIdea.data);
     dispatch(createNodeAction(newIdea.data));
   };
