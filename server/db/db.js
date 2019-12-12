@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const conn = require('./conn');
-const syncAndSeed = require('./seed');
+const syncAndSeed = require('./syncandseed');
 
 //Models
 const User = require('./models/User');
