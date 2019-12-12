@@ -1,9 +1,10 @@
-const crypto = require('crypto')
-const Sequelize = require('sequelize')
-const db = require('../db');
-const { STRING, UUID, UUIDV4, BOOLEAN} = Sequelize;
+const crypto = require("crypto");
+const Sequelize = require("sequelize");
+// const db = require("../db");
+const conn = require("../conn");
+const { STRING, UUID, UUIDV4, BOOLEAN } = Sequelize;
 
-const User = db.define('user', {
+const User = conn.define("user", {
   id: {
     type: UUID,
     primaryKey: true,
@@ -34,34 +35,36 @@ const User = db.define('user', {
     allowNull: false
   },
   salt: {
-    type: STRING,
-    }
-  });
+    type: STRING
+  }
+});
 
-const getRandomString = function (num) {
-  return crypto.randomBytes(Math.ceil(num/2)).toString('hex').slice(0,num);
+const getRandomString = function(num) {
+  return crypto
+    .randomBytes(Math.ceil(num / 2))
+    .toString("hex")
+    .slice(0, num);
 };
 
-const sha256 = function(pw, salt){
-  let hash = crypto.createHmac('sha256', salt);
+const sha256 = function(pw, salt) {
+  let hash = crypto.createHmac("sha256", salt);
   hash.update(pw);
-  let value = hash.digest('hex');
+  let value = hash.digest("hex");
   return value;
 };
 
-saltHashPassword = (user) => {
-  if(user.changed('password')){
-  user.salt = getRandomString(10);
-  user.password = sha256(user.password, user.salt);
+saltHashPassword = user => {
+  if (user.changed("password")) {
+    user.salt = getRandomString(10);
+    user.password = sha256(user.password, user.salt);
   }
 };
 
 User.prototype.correctPassword = function(pwd) {
-  return sha256(pwd, this.salt)
+  return sha256(pwd, this.salt);
 };
 
-User.beforeCreate(saltHashPassword)
-User.beforeUpdate(saltHashPassword)
+User.beforeCreate(saltHashPassword);
+User.beforeUpdate(saltHashPassword);
 
-module.exports = User
-
+module.exports = User;
