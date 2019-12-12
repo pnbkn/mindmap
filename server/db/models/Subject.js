@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const conn = require("../conn");
 
 const { STRING, UUID, UUIDV4, TEXT } = Sequelize;
 
@@ -9,7 +10,7 @@ const id = {
   primaryKey: true
 };
 
-const Subject = db.define("subject", {
+const Subject = conn.define("subject", {
   id: id,
   name: {
     type: STRING,

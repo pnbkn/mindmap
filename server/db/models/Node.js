@@ -1,20 +1,20 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize");
+const db = require("../db");
+const conn = require("../conn");
 
-const { STRING, UUID, UUIDV4} = Sequelize;
+const { UUID, UUIDV4, TEXT } = Sequelize;
 
 const id = {
-    type: UUID,
-    defaultValue: UUIDV4,
-    primaryKey: true
-}
+  type: UUID,
+  defaultValue: UUIDV4,
+  primaryKey: true
+};
 
-const Node = db.define('node', {
-    id: id,
-    name: {
-        type: STRING,
-        allowNull: false
-    }
-})
+const Node = conn.define("node", {
+  id: id,
+  body: {
+    type: TEXT
+  }
+});
 
-module.exports = Node
+module.exports = Node;
