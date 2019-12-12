@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const express = require("express");
 const db = require("../db/db");
-const { User, Node } = require("../db/models/index");
+const { Subject, User, Node } = require("../db/models/index");
 
 router.use(express.json());
 router.use(passport.initialize());
@@ -75,6 +75,17 @@ router.post("/nodes", (req, res, next) => {
   console.log("API POST ", req.body);
   return Node.create(req.body)
     .then(node => res.status(201).send(node))
+    .catch(next);
+});
+router.get("/subjects", (req, res, next) => {
+  return Subject.findAll()
+    .then(subjects => res.send(subjects))
+    .catch(next);
+});
+
+router.get("/subjects/:id", (req, res, next) => {
+  Subject.findByPk(req.params.id)
+    .then(subjects => res.send(subjects))
     .catch(next);
 });
 module.exports = router;
