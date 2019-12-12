@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const conn = require("../conn");
 
-const { STRING, UUID, UUIDV4 } = Sequelize;
+const { UUID, UUIDV4, TEXT } = Sequelize;
 
 const id = {
   type: UUID,
@@ -9,11 +10,10 @@ const id = {
   primaryKey: true
 };
 
-const Node = db.define("node", {
+const Node = conn.define("node", {
   id: id,
-  name: {
-    type: STRING,
-    allowNull: true
+  body: {
+    type: TEXT
   }
 });
 

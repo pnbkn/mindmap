@@ -10,7 +10,7 @@ import {
 } from "./actions.js";
 
 const reducer = combineReducers({
-  user: (state = [], action) => {
+  users: (state = [], action) => {
     if (action.type === SET_USERS) {
       return action.users;
     }
@@ -39,11 +39,12 @@ const reducer = combineReducers({
     }
     return state;
   },
-  node: (state = [], action) => {
+  nodes: (state = [], action) => {
     if (action.type === SET_NODES) {
       return action.nodes;
     }
     if (action.type === CREATE_NODE) {
+      console.log("REDUCER ", action.node);
       return [...state, action.node];
     }
     return state;

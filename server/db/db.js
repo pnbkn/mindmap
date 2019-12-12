@@ -1,7 +1,13 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
+const conn = require("./conn");
+const Node = require("./models/Node");
 
-const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/mindmap', {
-  logging: false
-});
+const syncAndSeed = require("./syncandseed");
 
-module.exports = db
+module.exports = {
+  syncAndSeed,
+  conn,
+  models: {
+    Node
+  }
+};

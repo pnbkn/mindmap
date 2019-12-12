@@ -2,11 +2,11 @@ import {
   setUsers,
   _createUser,
   _updateUser,
-  _createNode,
+  createNodeAction,
   _setNodes,
   setLoginError,
   setLoginSuccess
-} from "./actions.js";
+} from "./actions";
 import axios from "axios";
 
 const getUsers = () => {
@@ -25,15 +25,18 @@ const createUser = user => {
 
 const getNodes = () => {
   return async dispatch => {
-    const nodes = (await axios.get("api/nodes")).data;
-    dispatch(setUsers(nodes));
+    const nodes = (await axios.get("/api/nodes")).data;
+    dispatch(_setNodes(nodes));
   };
 };
 
-const createNode = node => {
+const createNode = payload => {
+  console.log("THUNKS START ", payload);
+
   return async dispatch => {
-    const addNote = (await axios.post("/api/nodes", node)).data;
-    dispatch(_createNode(addNode));
+    const newIdea = await axios.post("/api/nodes", { body: payload });
+    console.log("THUNKS DISPATCH ", newIdea.data);
+    dispatch(createNodeAction(newIdea.data));
   };
 };
 
@@ -54,5 +57,12 @@ const onLogin = user => {
       });
   };
 };
-
-export { getUsers, createUser, updateUser, onLogin, createNode, getNodes };
+export {
+  getUsers,
+  createUser,
+  updateUser,
+  onLogin,
+  createNode,
+  getNodes,
+  createNodeAction
+};

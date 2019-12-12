@@ -9,18 +9,22 @@ const SET_NODES = "SET_NODES";
 
 //Action Creators
 const setUsers = users => ({ type: SET_USERS, users });
-const _createUser = user => ({ type: CREATE_USER, user });
+const _createUser = user => ({ type: CREATE_USER, user: user });
 const _updateUser = user => ({ type: UPDATE_USER, user });
 const setLoginError = err => ({ type: SET_LOGIN_ERROR, err });
 const setLoginSuccess = user => ({ type: SET_LOGIN_SUCCESS, user });
-const _createNode = node => ({ type: CREATE_NODE, node });
-const _setNodes = node => ({ type: SET_NODES, node });
+const _setNodes = nodes => ({ type: SET_NODES, nodes });
+
+const createNodeAction = node => {
+  console.log("ACTION ", node);
+  return { type: CREATE_NODE, node: node };
+};
 
 export {
   setUsers,
   _createUser,
   _updateUser,
-  _createNode,
+  createNodeAction,
   _setNodes,
   setLoginError,
   setLoginSuccess,

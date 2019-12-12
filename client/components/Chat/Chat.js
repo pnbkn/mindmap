@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createNode } from "../../store/thunks";
+import store, { createNode, getNodes } from "../../store/";
 import socketIOClient from "socket.io-client";
 import socket from "../socket";
 
@@ -15,9 +15,10 @@ class Chat extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
+    store.dispatch(getNodes());
     socket.on(this.state.room, msg => {
       if (msg) {
-        this.props.getNodes();
+        this.props.getMessages();
       }
     });
   }
@@ -36,17 +37,17 @@ class Chat extends Component {
     console.log("SUBMIT ", this.state.body);
     socket.emit(this.state.room, { body: this.state.body });
 
-    this.setState({ body: "" });
+    this.setState({ room: "App", body: "" });
   };
   render() {
-    console.log("PROPS ", this.props);
+    console.log("PROPS ", this.props.nodes);
 
     return (
       <div className={"chat"}>
         <ul className={"messages"}>
-          {/* {this.props.nodes.map(node => (
-            <li id={node.id}>{node.name}</li>
-          ))} */}
+          {this.props.nodes.map(node => (
+            <li key={node.id}>{node.body}</li>
+          ))}
         </ul>
         <form method="post" onSubmit={this.handleSubmit}>
           <input
@@ -64,13 +65,13 @@ class Chat extends Component {
 }
 
 const mapStateToProps = state => ({
-  subject: state.subjects,
-  node: state.nodes
+  nodes: state.nodes,
+  subject: state.subjects
 });
 const mapDispatchToProps = dispatch => {
   return {
-    postNode: node => dispatch(createNode(node)),
-    getNodes: node => dispatch(getNodes())
+    postNode: _node => dispatch(createNode(_node)),
+    getMessages: () => dispatch(getNodes())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
