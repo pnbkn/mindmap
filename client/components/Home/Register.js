@@ -22,7 +22,6 @@ class _Register extends React.Component{
   onSubmit(ev){
     ev.preventDefault()
     this.props.createUser({...this.state})
-
   }
 
   render(){
@@ -31,10 +30,10 @@ class _Register extends React.Component{
 
     return (
       <div className="register">
-        <form onSubmit={ onSubmit }>
-          <div><label>Full Name</label><input name="name" type="text" placeholder="enter your full name" value={ name } onChange={ onChange } required/></div>
-          <div><label>Email Address</label><input name="email" type="email" placeholder="enter email address" value={ email } onChange={ onChange } required/></div>
-          <div><label>Choose a password</label><input name="password" type="password" placeholder="choose a password" value={ password } onChange={ onChange } required/></div>
+        <form id = 'register' onSubmit={ onSubmit }>
+          <div><label>Name</label><input name="name" type="text" placeholder="enter your name" value={ name } onChange={ onChange } required/></div>
+          <div><label>Email</label><input name="email" type="email" placeholder="enter email address" value={ email } onChange={ onChange } required/></div>
+          <div><label>Password</label><input name="password" type="password" placeholder="choose a password" value={ password } onChange={ onChange } required/></div>
           <button className="onRegister">Register</button>
           <p>Already have an account? Login <Link to={'/login'}>here</Link>.</p>
         </form>

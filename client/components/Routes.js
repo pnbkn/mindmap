@@ -11,6 +11,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/subject" component={Chat} />
+        <Route exact path = '/register' component = {Register} />
       </Switch>
     );
   }

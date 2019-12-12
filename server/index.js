@@ -3,9 +3,10 @@ const app = express();
 // const http = require("http");
 const path = require("path");
 const PORT = process.env.PORT || 8000;
-const session = require("express-session");
 const db = require("./db");
 const socketIO = require("socket.io");
+const routes =  require('./api/index');
+
 
 const server = app.listen(PORT, () =>
   console.log(`kicking it on port ${PORT}`)
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/api', require('./api'))
 
 app.use("/dist", express.static(path.join(__dirname, "..", "/dist")));
+app.use('/', routes);
+
 
 app.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
