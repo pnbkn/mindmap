@@ -4,19 +4,20 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 8000;
 const session = require("express-session");
-const db = require("./db");
+const db = require("./db/db");
 const socketIO = require("socket.io");
-
-const server = app.listen(PORT, () =>
-  console.log(`kicking it on port ${PORT}`)
-);
-const io = socketIO(server);
-require("./socket")(io);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api", require("./api"));
+// const routes = require("./api/index");
 
-// app.use('/api', require('./api'))
+db.syncAndSeed().then(() => {
+  const server = app.listen(PORT, () =>
+    console.log(`kicking it on port ${PORT}`)
+  );
+  const io = socketIO(server);
+  require("./socket")(io);
+});
 
 app.use("/dist", express.static(path.join(__dirname, "..", "/dist")));
 
@@ -26,10 +27,3 @@ app.get("/", (req, res, next) => {
 app.get("/styles.css", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/styles.css"));
 });
-
-// db.sync()
-//   .then(() => {
-
-// });
-
-module.exports = app;
