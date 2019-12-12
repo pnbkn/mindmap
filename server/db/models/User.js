@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const Sequelize = require("sequelize");
-const db = require("../db");
+// const db = require("../db");
 const conn = require("../conn");
 const { STRING, UUID, UUIDV4, BOOLEAN } = Sequelize;
 
