@@ -72,7 +72,6 @@ router.get("/nodes", (req, res, next) => {
     .catch(next);
 });
 router.post("/nodes", (req, res, next) => {
-  console.log("API POST ", req.body);
   return Node.create(req.body)
     .then(node => res.status(201).send(node))
     .catch(next);
@@ -86,6 +85,12 @@ router.get("/subjects", (req, res, next) => {
 router.get("/subjects/:id", (req, res, next) => {
   Subject.findByPk(req.params.id)
     .then(subjects => res.send(subjects))
+    .catch(next);
+});
+router.post("/subjects", (req, res, next) => {
+  console.log("API POST ", req.body);
+  return Subject.create(req.body)
+    .then(subject => res.status(201).send(subject))
     .catch(next);
 });
 module.exports = router;

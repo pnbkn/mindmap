@@ -3,6 +3,8 @@ import {
   _createUser,
   _updateUser,
   createNodeAction,
+  createSubjectAction,
+  setSubjectAction,
   _setNodes,
   setLoginError,
   setLoginSuccess
@@ -31,12 +33,26 @@ const getNodes = () => {
 };
 
 const createNode = payload => {
+  return async dispatch => {
+    const newIdea = await axios.post("/api/nodes", payload);
+    dispatch(createNodeAction(newIdea.data));
+  };
+};
+
+const getSubjects = () => {
+  return async dispatch => {
+    const subjects = (await axios.get("api/subjects")).data;
+    dispatch(setSubjectAction(subjects));
+  };
+};
+
+const createSubject = payload => {
   console.log("THUNKS START ", payload);
 
   return async dispatch => {
-    const newIdea = await axios.post("/api/nodes", payload);
-    console.log("THUNKS DISPATCH ", newIdea.data);
-    dispatch(createNodeAction(newIdea.data));
+    const newSubject = await axios.post("/api/subjects", payload);
+    console.log("THUNKS DISPATCH ", newSubject.data);
+    dispatch(createSubjectAction(newSubject.data));
   };
 };
 
@@ -63,6 +79,10 @@ export {
   updateUser,
   onLogin,
   createNode,
+  createSubject,
+  getSubjects,
   getNodes,
-  createNodeAction
+  createNodeAction,
+  createSubjectAction,
+  setSubjectAction
 };
