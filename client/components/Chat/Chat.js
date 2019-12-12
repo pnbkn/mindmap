@@ -48,17 +48,28 @@ class Chat extends Component {
           {this.props.nodes.map(node => (
             <li key={node.id}>{node.body}</li>
           ))}
+          <br />
+          <br />
+          <form method="post" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <input
+                name="body"
+                type="text"
+                value={this.state.body}
+                autoComplete="off"
+                className="form-control"
+                placeholder="Idea"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <button type="submit" className="btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+          <br />
         </ul>
-        <form method="post" onSubmit={this.handleSubmit}>
-          <input
-            name="body"
-            type="text"
-            value={this.state.body}
-            autoComplete="off"
-            onChange={this.handleChange}
-          />
-          <button>Send</button>
-        </form>
       </div>
     );
   }
