@@ -8,6 +8,8 @@ import {
   updateUser,
   onLogin,
   createNode,
+  createSubject,
+  getSubjects,
   getNodes
 } from "./thunks.js";
 
@@ -15,4 +17,13 @@ import {
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
-export { getUsers, createUser, updateUser, onLogin, createNode, getNodes };
+export {
+  getUsers,
+  createUser,
+  updateUser,
+  onLogin,
+  createNode,
+  getNodes,
+  createSubject,
+  getSubjects
+};

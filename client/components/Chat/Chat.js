@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import store, { createNode, getNodes } from "../../store/";
 import socketIOClient from "socket.io-client";
 import socket from "../socket";
@@ -52,7 +53,9 @@ class Chat extends Component {
         <ul className={"messages"}>
           {this.props.nodes.map(node =>
             this.props.match.params.id === node.subjectId ? (
-              <li key={node.id}>{node.body}</li>
+              <Link className={"chatBubble"} key={node.id} to="">
+                <li key={node.id}>{node.body}</li>
+              </Link>
             ) : (
               ""
             )
@@ -67,7 +70,7 @@ class Chat extends Component {
                 value={this.state.body}
                 autoComplete="off"
                 className="form-control"
-                placeholder="Idea"
+                placeholder="Post Your Idea Here"
                 onChange={this.handleChange}
               />
             </div>

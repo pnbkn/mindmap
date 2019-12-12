@@ -6,7 +6,9 @@ import {
   SET_LOGIN_SUCCESS,
   SET_LOGIN_ERROR,
   CREATE_NODE,
-  SET_NODES
+  SET_NODES,
+  SET_SUBJECT,
+  CREATE_SUBJECT
 } from "./actions.js";
 
 const reducer = combineReducers({
@@ -36,6 +38,16 @@ const reducer = combineReducers({
     }
     if (action.type === SET_LOGIN_ERROR) {
       return { ...state, email: "", password: "", user: null, err: action.err };
+    }
+    return state;
+  },
+  subjects: (state = [], action) => {
+    if (action.type === SET_SUBJECT) {
+      return action.subjects;
+    }
+    if (action.type === CREATE_SUBJECT) {
+      console.log("REDUCER ", action.node);
+      return [...state, action.subject];
     }
     return state;
   },
