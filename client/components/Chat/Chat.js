@@ -44,44 +44,61 @@ class Chat extends Component {
 
     this.setState({ room: "App", body: "", subjectId: "" });
   };
+
+  renderTree() {
+    if (this.props.nodes.length == 0) {
+      return "No data yet";
+    } else {
+      console.log("nodesTree", this.props.nodes);
+      return <TreeWrapper nodes={this.props.nodes} />;
+    }
+  }
+
   render() {
     console.log("PROPS Nodes ", this.props.nodes);
     console.log("PROPS SUBJECTS ", this.props);
 
     return (
-      <div className={"chat"}>
-        <ul className={"messages"}>
-          {this.props.nodes.map(node =>
-            this.props.match.params.id === node.subjectId ? (
-              <Link className={"chatBubble"} key={node.id} to="">
-                <li key={node.id}>{node.body}</li>
-              </Link>
-            ) : (
-              ""
-            )
-          )}
-          <br />
-          <br />
-          <form method="post" onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <input
-                name="body"
-                type="text"
-                value={this.state.body}
-                autoComplete="off"
-                className="form-control"
-                placeholder="Post Your Idea Here"
-                onChange={this.handleChange}
-              />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <div className={"chat"}>
+              <ul className={"messages"}>
+                {this.props.nodes.map(node =>
+                  this.props.match.params.id === node.subjectId ? (
+                    <Link className={"chatBubble"} key={node.id} to="">
+                      <li key={node.id}>{node.body}</li>
+                    </Link>
+                  ) : (
+                    ""
+                  )
+                )}
+                <br />
+                <br />
+                <form method="post" onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <input
+                      name="body"
+                      type="text"
+                      value={this.state.body}
+                      autoComplete="off"
+                      className="form-control"
+                      placeholder="Post Your Idea Here"
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <div>
+                    <button type="submit" className="btn-primary">
+                      Send
+                    </button>
+                  </div>
+                </form>
+                <br />
+              </ul>
             </div>
-            <div>
-              <button type="submit" className="btn-primary">
-                Send
-              </button>
-            </div>
-          </form>
-          <br />
-        </ul>
+          </div>
+          <div className="col">{this.renderTree()}</div>
+        </div>
       </div>
     );
   }
