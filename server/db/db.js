@@ -19,7 +19,7 @@ Node.belongsTo(Subject);
 Subject.hasMany(Node);
 
 Node.belongsTo(Node, { as: "parent" });
-Node.hasMany(Node, { as: "child" });
+Node.hasMany(Node, { as: "child", foreignKey: "parentId" });
 
 module.exports = {
   syncAndSeed,
