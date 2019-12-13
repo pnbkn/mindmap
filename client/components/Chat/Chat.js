@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import store, { createNode, getNodes } from "../../store/";
 import socketIOClient from "socket.io-client";
 import socket from "../socket";
+import TreeWrapper from "../Mindmap/TreeWrapper";
 
 class Chat extends Component {
   constructor(props) {
