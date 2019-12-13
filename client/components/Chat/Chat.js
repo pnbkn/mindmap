@@ -51,7 +51,12 @@ class Chat extends Component {
       return "No data yet";
     } else {
       console.log("nodesTree", this.props.nodes);
-      return <TreeWrapper nodes={this.props.nodes} />;
+      return (
+        <TreeWrapper
+          nodes={this.props.nodes}
+          match={this.props.match.params.id}
+        />
+      );
     }
   }
 
