@@ -107,3 +107,7 @@ button {
   align-items: flex-start;
   margin-left: 10%;
 }
+line {
+  stroke: red;
+  fill: none;
+}

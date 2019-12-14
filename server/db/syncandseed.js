@@ -88,14 +88,46 @@ const syncAndSeed = async () => {
   // Nodes
   const nodes = [
     { body: "Idea 1 - 1", userId: Alex.id, subjectId: subject1.id },
-    { body: "Idea 1 - 2", userId: Oscar.id, subjectId: subject1.id },
-    { body: "Idea 2 - 1", userId: Oscar.id, subjectId: subject3.id },
-    { body: "Idea 2 - 2", userId: Alex.id, subjectId: subject3.id },
-    { body: "Idea 3 - 1", userId: Paul.id, subjectId: subject5.id },
-    { body: "Idea 3 - 2", userId: Saleh.id, subjectId: subject5.id },
-    { body: "Idea 4 - 1", userId: Saleh.id, subjectId: subject7.id },
-    { body: "Idea 4 - 2", userId: Paul.id, subjectId: subject7.id },
-    { body: "Idea 5 - 1", userId: Shruti.id, subjectId: subject9.id }
+    {
+      body: "Idea 1 - 2",
+      userId: Oscar.id,
+      subjectId: subject1.id
+    },
+    {
+      body: "Idea 2 - 1",
+      userId: Oscar.id,
+      subjectId: subject3.id
+    },
+    {
+      body: "Idea 2 - 2",
+      userId: Alex.id,
+      subjectId: subject3.id
+    },
+    {
+      body: "Idea 3 - 1",
+      userId: Paul.id,
+      subjectId: subject5.id
+    },
+    {
+      body: "Idea 3 - 2",
+      userId: Saleh.id,
+      subjectId: subject5.id
+    },
+    {
+      body: "Idea 4 - 1",
+      userId: Saleh.id,
+      subjectId: subject7.id
+    },
+    {
+      body: "Idea 4 - 2",
+      userId: Paul.id,
+      subjectId: subject7.id
+    },
+    {
+      body: "Idea 5 - 1",
+      userId: Shruti.id,
+      subjectId: subject9.id
+    }
   ];
 
   const [
@@ -109,6 +141,23 @@ const syncAndSeed = async () => {
     node8,
     node9
   ] = await Promise.all(nodes.map(node => Node.create(node)));
+
+  node2.parentId = node1.id;
+  await node2.save();
+  node3.parentId = node1.id;
+  await node3.save();
+  node4.parentId = node1.id;
+  await node4.save();
+  node5.parentId = node2.id;
+  await node5.save();
+  node6.parentId = node3.id;
+  await node6.save();
+  node7.parentId = node2.id;
+  await node7.save();
+  node8.parentId = node3.id;
+  await node8.save();
+  node9.parentId = node4.id;
+  await node9.save();
 
   return {
     nodes: {
