@@ -18,7 +18,7 @@ class Chat extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-    store.dispatch(getNodes());
+    await this.props.getMessages();
     socket.on(this.state.room, msg => {
       if (msg) {
         this.props.getMessages();
@@ -43,7 +43,7 @@ class Chat extends Component {
     console.log("SUBMIT ", this.state.body);
     socket.emit(this.state.room, { body: this.state.body });
 
-    this.setState({ room: "App", body: "", subjectId: "" });
+    this.setState({ room: "APP", body: "", subjectId: "" });
   };
 
   renderTree() {

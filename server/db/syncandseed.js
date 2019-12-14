@@ -3,6 +3,10 @@ const User = require("./models/User");
 const Subject = require("./models/Subject");
 const Node = require("./models/Node");
 
+// const syncAndSeed = async () => { // Use for final app
+//   await conn.sync();
+// };
+
 const syncAndSeed = async () => {
   await conn.sync({ force: true }); //THIS NEEDS TO BE REMOVED IN FINAL VERSION
 
