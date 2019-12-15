@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import store, { createNode, getNodes } from "../../store/";
+import store, { createNode, getNodes, getSubjects } from "../../store/";
 import socketIOClient from "socket.io-client";
 import socket from "../socket";
 import TreeWrapper from "../Mindmap/TreeWrapper";
@@ -18,6 +18,7 @@ class Chat extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
+    store.dispatch(getSubjects());
     await this.props.getMessages();
     socket.on(this.state.room, msg => {
       if (msg) {
@@ -70,6 +71,13 @@ class Chat extends Component {
           <div className="col">
             <div className={"chat"}>
               <ul className={"messages"}>
+                <h2>
+                  {this.props.subjects.map(subject =>
+                    subject.id === this.props.match.params.id
+                      ? subject.name
+                      : ""
+                  )}
+                </h2>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
                     <Link className={"chatBubble"} key={node.id} to="">
@@ -112,12 +120,13 @@ class Chat extends Component {
 
 const mapStateToProps = state => ({
   nodes: state.nodes,
-  subject: state.subjects
+  subjects: state.subjects
 });
 const mapDispatchToProps = dispatch => {
   return {
     postNode: _node => dispatch(createNode(_node)),
-    getMessages: () => dispatch(getNodes())
+    getMessages: () => dispatch(getNodes()),
+    getSubjects: () => dispatch(getSubjects())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

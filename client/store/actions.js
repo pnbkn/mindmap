@@ -16,7 +16,7 @@ const _updateUser = user => ({ type: UPDATE_USER, user });
 const setLoginError = err => ({ type: SET_LOGIN_ERROR, err });
 const setLoginSuccess = user => ({ type: SET_LOGIN_SUCCESS, user });
 const _setNodes = nodes => ({ type: SET_NODES, nodes });
-const setSubjectAction = nodes => ({ type: SET_SUBJECT, subjects });
+const setSubjectAction = subjects => ({ type: SET_SUBJECT, subjects });
 const createNodeAction = node => {
   return { type: CREATE_NODE, node: node };
 };
