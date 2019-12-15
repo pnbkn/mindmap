@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-// const http = require("http");
 const path = require("path");
 const PORT = process.env.PORT || 8000;
 const session = require("express-session");
@@ -9,7 +8,6 @@ const socketIO = require("socket.io");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", require("./api"));
-// const routes = require("./api/index");
 
 db.syncAndSeed().then(() => {
   const server = app.listen(PORT, () =>

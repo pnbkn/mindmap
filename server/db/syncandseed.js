@@ -3,6 +3,10 @@ const User = require("./models/User");
 const Subject = require("./models/Subject");
 const Node = require("./models/Node");
 
+// const syncAndSeed = async () => { // Use for final app
+//   await conn.sync();
+// };
+
 const syncAndSeed = async () => {
   await conn.sync({ force: true }); //THIS NEEDS TO BE REMOVED IN FINAL VERSION
 
@@ -47,27 +51,27 @@ const syncAndSeed = async () => {
   // Subjects
   const subjects = [
     {
-      name: "Project 1",
+      name: "Core architecture",
       description: "Core architecture discussion",
       userId: Alex.id
     },
     {
-      name: "Project 2",
+      name: "Components",
       description: "Components discussion",
       userId: Alex.id
     },
     {
-      name: "Project 3",
+      name: "Layout",
       description: "Layout brainstorming",
       userId: Oscar.id
     },
-    { name: "Project 4", description: "Dependencies graph", userId: Oscar.id },
-    { name: "Project 5", description: "Build discussion", userId: Paul.id },
-    { name: "Project 6", description: "Resources structure", userId: Paul.id },
-    { name: "Project 7", description: "Release plan", userId: Saleh.id },
-    { name: "Project 8", description: "Root cause analysis", userId: Saleh.id },
+    { name: "Subject 4", description: "Dependencies graph", userId: Oscar.id },
+    { name: "Subject 5", description: "Build discussion", userId: Paul.id },
+    { name: "Subject 6", description: "Resources structure", userId: Paul.id },
+    { name: "Subject 7", description: "Release plan", userId: Saleh.id },
+    { name: "Subject 8", description: "Root cause analysis", userId: Saleh.id },
     {
-      name: "Project 9",
+      name: "Troubleshooting",
       description: "Troubleshooting discussion",
       userId: Shruti.id
     }
