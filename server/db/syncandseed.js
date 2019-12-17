@@ -2,6 +2,7 @@ const conn = require("./conn");
 const User = require("./models/User");
 const Subject = require("./models/Subject");
 const Node = require("./models/Node");
+const Tree = require("./models/Tree");
 
 // const syncAndSeed = async () => { // Use for final app
 //   await conn.sync();
@@ -91,46 +92,61 @@ const syncAndSeed = async () => {
 
   // Nodes
   const nodes = [
-    { body: "Idea 1 - 1", userId: Alex.id, subjectId: subject1.id },
+    { body: "idea 1", userId: Alex.id, subjectId: subject1.id },
     {
-      body: "Idea 1 - 2",
+      body: "idea 2",
       userId: Oscar.id,
       subjectId: subject1.id
     },
     {
-      body: "Idea 2 - 1",
+      body: "idea 3",
       userId: Oscar.id,
-      subjectId: subject3.id
+      subjectId: subject1.id
     },
     {
-      body: "Idea 2 - 2",
+      body: "idea 4",
+      userId: Oscar.id,
+      subjectId: subject1.id
+    },
+    {
+      body: "idea 5",
       userId: Alex.id,
+      subjectId: subject2.id
+    },
+    {
+      body: "idea 6",
+      userId: Alex.id,
+      subjectId: subject2.id
+    },
+    {
+      body: "idea 7",
+      userId: Paul.id,
+      subjectId: subject2.id
+    },
+    {
+      body: "idea 8",
+      userId: Saleh.id,
+      subjectId: subject2.id
+    },
+    {
+      body: "idea 9",
+      userId: Saleh.id,
       subjectId: subject3.id
     },
     {
-      body: "Idea 3 - 1",
-      userId: Paul.id,
-      subjectId: subject5.id
-    },
-    {
-      body: "Idea 3 - 2",
+      body: "idea 10",
       userId: Saleh.id,
-      subjectId: subject5.id
+      subjectId: subject3.id
     },
     {
-      body: "Idea 4 - 1",
-      userId: Saleh.id,
-      subjectId: subject7.id
-    },
-    {
-      body: "Idea 4 - 2",
+      body: "idea 11",
       userId: Paul.id,
-      subjectId: subject7.id
+      subjectId: subject3.id
     },
     {
-      body: "Idea 5 - 1",
+      body: "idea 12",
       userId: Shruti.id,
-      subjectId: subject9.id
+      subjectId: subject3.id
     }
   ];
 
@@ -143,25 +159,96 @@ const syncAndSeed = async () => {
     node6,
     node7,
     node8,
-    node9
+    node9,
+    node10,
+    node11,
+    node12
   ] = await Promise.all(nodes.map(node => Node.create(node)));
 
-  node2.parentId = node1.id;
-  await node2.save();
-  node3.parentId = node1.id;
-  await node3.save();
-  node4.parentId = node1.id;
-  await node4.save();
-  node5.parentId = node2.id;
-  await node5.save();
-  node6.parentId = node3.id;
-  await node6.save();
-  node7.parentId = node2.id;
-  await node7.save();
-  node8.parentId = node3.id;
-  await node8.save();
-  node9.parentId = node4.id;
-  await node9.save();
+  const trees = [
+    {
+      idea: subject1.name,
+      subjectId: subject1.id
+    },
+    {
+      idea: "idea  - 2",
+      subjectId: subject1.id
+    },
+    {
+      idea: "idea  - 3",
+      subjectId: subject1.id
+    },
+    {
+      idea: "idea - 4",
+      subjectId: subject1.id
+    },
+    {
+      idea: subject2.name,
+      subjectId: subject2.id
+    },
+    {
+      idea: "idea - 6",
+      subjectId: subject2.id
+    },
+    {
+      idea: "idea - 7",
+      subjectId: subject2.id
+    },
+    {
+      idea: "idea - 8",
+      subjectId: subject2.id
+    },
+    {
+      idea: subject3.name,
+      subjectId: subject3.id
+    },
+    {
+      idea: " idea - 10",
+      subjectId: subject3.id
+    },
+    {
+      idea: " idea - 11",
+      subjectId: subject3.id
+    },
+    {
+      idea: " idea - 12",
+      subjectId: subject3.id
+    }
+  ];
+
+  const [
+    idea1,
+    idea2,
+    idea3,
+    idea4,
+    idea5,
+    idea6,
+    idea7,
+    idea8,
+    idea9,
+    idea10,
+    idea11,
+    idea12
+  ] = await Promise.all(trees.map(tree => Tree.create(tree)));
+
+  idea2.parentId = idea1.id;
+  await idea2.save();
+  idea3.parentId = idea1.id;
+  await idea3.save();
+  idea4.parentId = idea1.id;
+  await idea4.save();
+  idea6.parentId = idea5.id;
+  await idea6.save();
+  idea7.parentId = idea5.id;
+  await idea7.save();
+  idea8.parentId = idea5.id;
+  await idea8.save();
+  idea10.parentId = idea9.id;
+  await idea10.save();
+  idea11.parentId = idea9.id;
+  await idea11.save();
+  idea12.parentId = idea9.id;
+  await idea12.save();
 
   return {
     nodes: {
