@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+}
+body {
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #1b1b1b;
+  margin: 0;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.nav a {
+  color: #fff;
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  width: 60%;
+}
+.chat,
+form {
+  width: 80%;
+  align-items: center;
+  margin-left: 10%;
+}
+.chat input {
+  width: 100%;
+  height: 3rem;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+.messages {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.chat button {
+  height: 3rem;
+  width: 100%;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.login,
+.register {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
+  margin: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 0.075rem solid #ccc;
+  border-radius: 1.5rem;
+}
+
+.login input,
+button,
+.register input,
+button {
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  width: 20rem;
+  font-size: 0.75rem;
+}
+
+.chatBubble {
+  list-style: none;
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  color: #fff;
+  width: 50%;
+  border-radius: 20px;
+  font-size: 1.2rem;
+}
+.chatBubble:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.messages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.messages > .chatBubble:nth-child(odd) {
+  background: #ccc;
+  text-align: right;
+  align-items: flex-end;
+  margin-left: 40%;
+}
+.messages > .chatBubble:nth-child(even) {
+  background: #999;
+  text-align: left;
+  align-items: flex-start;
+  margin-left: 10%;
+}
+line {
+  stroke: red;
+  fill: none;
+}
