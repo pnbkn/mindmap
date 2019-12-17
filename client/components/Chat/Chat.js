@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import store, { createNode, getNodes, getSubjects } from "../../store/";
+import store, {
+  createNode,
+  getNodes,
+  getSubjects,
+  getTrees,
+  createTree
+} from "../../store/";
 import socketIOClient from "socket.io-client";
 import socket from "../socket";
 import TreeWrapper from "../Mindmap/TreeWrapper";
@@ -19,7 +25,9 @@ class Chat extends Component {
   }
   async componentDidMount() {
     store.dispatch(getSubjects());
+    store.dispatch(getTrees());
     await this.props.getMessages();
+
     socket.on(this.state.room, msg => {
       if (msg) {
         this.props.getMessages();
@@ -48,13 +56,13 @@ class Chat extends Component {
   };
 
   renderTree() {
-    if (this.props.nodes.length == 0) {
+    if (this.props.trees.length == 0) {
       return "No data yet";
     } else {
-      console.log("nodesTree", this.props.nodes);
+      console.log("nodesTree", this.props.trees);
       return (
         <TreeWrapper
-          nodes={this.props.nodes}
+          trees={this.props.trees}
           match={this.props.match.params.id}
         />
       );
@@ -62,53 +70,67 @@ class Chat extends Component {
   }
 
   render() {
+    const subject = this.props.subjects.filter(
+      subject => subject.id === this.props.match.params.id
+    );
+    const tree = this.props.trees.filter(
+      tree => tree.subjectId === subject[0].id
+    );
+    if (!tree.length) {
+      this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
+    }
     console.log("PROPS Nodes ", this.props.nodes);
     console.log("PROPS SUBJECTS ", this.props);
+    console.log("foundChat", tree);
+    console.log("subjectChat", subject);
+    const treeList = document.querySelector("g");
+
+    if (treeList) {
+      console.log("textTree", treeList.children[1].children);
+    }
 
     return (
       <div className="container">
         <div className="row">
           <div className="col">
             <div className={"chat"}>
+              <h2>
+                {this.props.subjects.map(subject =>
+                  subject.id === this.props.match.params.id ? subject.name : ""
+                )}
+              </h2>
               <ul className={"messages"}>
-                <h2>
-                  {this.props.subjects.map(subject =>
-                    subject.id === this.props.match.params.id
-                      ? subject.name
-                      : ""
-                  )}
-                </h2>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
-                    <Link className={"chatBubble"} key={node.id} to="">
-                      <li key={node.id}>{node.body}</li>
-                    </Link>
+                    <li className={"chatBubble"} key={node.id}>
+                      {node.body}
+                    </li>
                   ) : (
                     ""
                   )
                 )}
-                <br />
-                <br />
-                <form method="post" onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <input
-                      name="body"
-                      type="text"
-                      value={this.state.body}
-                      autoComplete="off"
-                      className="form-control"
-                      placeholder="Post Your Idea Here"
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  <div>
-                    <button type="submit" className="btn-primary">
-                      Send
-                    </button>
-                  </div>
-                </form>
-                <br />
               </ul>
+              <br />
+              <br />
+              <form method="post" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <input
+                    name="body"
+                    type="text"
+                    value={this.state.body}
+                    autoComplete="off"
+                    className="form-control"
+                    placeholder="Post Your Idea Here"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div>
+                  <button type="submit" className="btn-primary">
+                    Send
+                  </button>
+                </div>
+              </form>
+              <br />
             </div>
           </div>
           <div className="col">{this.renderTree()}</div>
@@ -120,13 +142,16 @@ class Chat extends Component {
 
 const mapStateToProps = state => ({
   nodes: state.nodes,
-  subjects: state.subjects
+  subjects: state.subjects,
+  trees: state.trees
 });
 const mapDispatchToProps = dispatch => {
   return {
     postNode: _node => dispatch(createNode(_node)),
     getMessages: () => dispatch(getNodes()),
-    getSubjects: () => dispatch(getSubjects())
+    getSubjects: () => dispatch(getSubjects()),
+    getTrees: () => dispatch(getTrees()),
+    postTree: _tree => dispatch(createTree(_tree))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

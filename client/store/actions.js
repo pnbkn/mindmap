@@ -8,6 +8,8 @@ const CREATE_NODE = "CREATE_NODE";
 const SET_NODES = "SET_NODES";
 const CREATE_SUBJECT = "CREATE_SUBJECT";
 const SET_SUBJECT = "SET_SUBJECT";
+const SET_TREE = "SET_TREE";
+const CREATE_TREE = "CREATE_TREE";
 
 //Action Creators
 const setUsers = users => ({ type: SET_USERS, users });
@@ -23,6 +25,8 @@ const createNodeAction = node => {
 const createSubjectAction = subject => {
   return { type: CREATE_SUBJECT, subject: subject };
 };
+const setTreeAction = trees => ({ type: SET_TREE, trees });
+const createTreeAction = tree => ({ type: CREATE_TREE, tree });
 
 export {
   setUsers,
@@ -42,5 +46,9 @@ export {
   SET_LOGIN_ERROR,
   SET_SUBJECT,
   CREATE_NODE,
-  SET_NODES
+  SET_NODES,
+  SET_TREE,
+  CREATE_TREE,
+  setTreeAction,
+  createTreeAction
 };

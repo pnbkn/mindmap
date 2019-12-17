@@ -7,7 +7,9 @@ import {
   setSubjectAction,
   _setNodes,
   setLoginError,
-  setLoginSuccess
+  setLoginSuccess,
+  setTreeAction,
+  createTreeAction
 } from "./actions";
 import axios from "axios";
 
@@ -56,6 +58,20 @@ const createSubject = payload => {
   };
 };
 
+const getTrees = () => {
+  return async dispatch => {
+    const trees = (await axios.get("/api/trees")).data;
+    dispatch(setTreeAction(trees));
+  };
+};
+
+const createTree = payload => {
+  return async dispatch => {
+    const newTree = await axios.post("/api/trees", payload);
+    dispatch(createTreeAction(newTree.data));
+  };
+};
+
 const updateUser = (id, payload) => async dispatch => {
   const user = (await axios.put(`/api/users`, { id: id, ...payload })).data;
   dispatch(_updateUser(user));
@@ -84,5 +100,7 @@ export {
   getNodes,
   createNodeAction,
   createSubjectAction,
-  setSubjectAction
+  setSubjectAction,
+  getTrees,
+  createTree
 };

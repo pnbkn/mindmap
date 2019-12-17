@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const express = require("express");
 const db = require("../db/db");
-const { Subject, User, Node } = require("../db/models/index");
+const { Subject, User, Node, Tree } = require("../db/models/index");
 
 router.use(express.json());
 router.use(passport.initialize());
@@ -93,4 +93,17 @@ router.post("/subjects", (req, res, next) => {
     .then(subject => res.status(201).send(subject))
     .catch(next);
 });
+
+router.get("/trees", (req, res, next) => {
+  return Tree.findAll()
+    .then(trees => res.send(trees))
+    .catch(next);
+});
+
+router.post("/trees", (req, res, next) => {
+  return Tree.create(req.body)
+    .then(tree => res.status(201).send(tree))
+    .catch(next);
+});
+
 module.exports = router;

@@ -4,6 +4,7 @@ import { Home } from "./Home/Home";
 import Chat from "./Chat/Chat";
 import { Login } from "./Home/Login";
 import { Register } from "./Home/Register";
+import Subjects from "./Subjects";
 
 class Routes extends Component {
   render() {
@@ -12,6 +13,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route exact path="/subjects/:id" component={Chat} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/subjects" component={Subjects} />
       </Switch>
     );
   }

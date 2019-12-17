@@ -8,7 +8,9 @@ import {
   CREATE_NODE,
   SET_NODES,
   SET_SUBJECT,
-  CREATE_SUBJECT
+  CREATE_SUBJECT,
+  SET_TREE,
+  CREATE_TREE
 } from "./actions.js";
 
 const reducer = combineReducers({
@@ -58,6 +60,16 @@ const reducer = combineReducers({
     if (action.type === CREATE_NODE) {
       console.log("REDUCER ", action.node);
       return [...state, action.node];
+    }
+    return state;
+  },
+  trees: (state = [], action) => {
+    if (action.type === SET_TREE) {
+      return action.trees;
+    }
+    if (action.type === CREATE_TREE) {
+      console.log("REDUCER ", action.tree);
+      return [...state, action.tree];
     }
     return state;
   }
