@@ -12,6 +12,7 @@ import {
   createTreeAction
 } from "./actions";
 import axios from "axios";
+import history from '../history.js'
 
 const getUsers = () => {
   return async dispatch => {
@@ -24,6 +25,7 @@ const createUser = user => {
   return async dispatch => {
     const created = (await axios.post("/api/register", user)).data;
     dispatch(_createUser(created));
+    history.push('/subjects');
   };
 };
 
@@ -82,7 +84,8 @@ const onLogin = user => {
     await axios
       .post("/api/login", user)
       .then(response => {
-        dispatch(setLoginSuccess(response.data));
+        dispatch(setLoginSuccess(response.data))
+        history.push('/subjects');
       })
       .catch(e => {
         return dispatch(setLoginError(e.message));
