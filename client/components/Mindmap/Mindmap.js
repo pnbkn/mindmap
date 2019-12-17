@@ -25,7 +25,7 @@ export default class MindMap {
     console.log("table", table);
     const dataStructure = d3.hierarchy(table);
 
-    const treeLayout = d3.tree().size([300, 150]);
+    const treeLayout = d3.tree().size([300, 300]);
     const information = treeLayout(dataStructure);
     console.log(information.links());
     const svg = d3
@@ -91,15 +91,4 @@ export default class MindMap {
   }
 }
 
-// const mapStateToProps = state => ({
-//   trees: state.trees,
-//   subjects: state.subjects
-// });
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     postTree: _tree => dispatch(createNode(_tree)),
-//     getTrees: () => dispatch(getTrees()),
-//     getSubjects: () => dispatch(getSubjects())
-//   };
-// };
-// export default connect(mapStateToProps, mapDispatchToProps)(Tree);
+//     

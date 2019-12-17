@@ -12,11 +12,11 @@ import {
   createTreeAction
 } from "./actions";
 import axios from "axios";
-import history from '../history.js'
+import history from "../history.js";
 
 const getUsers = () => {
   return async dispatch => {
-    const users = (await axios.get("api/users")).data;
+    const users = (await axios.get("/api/users")).data;
     dispatch(setUsers(users));
   };
 };
@@ -25,7 +25,7 @@ const createUser = user => {
   return async dispatch => {
     const created = (await axios.post("/api/register", user)).data;
     dispatch(_createUser(created));
-    history.push('/subjects');
+    history.push("/subjects");
   };
 };
 
@@ -45,7 +45,7 @@ const createNode = payload => {
 
 const getSubjects = () => {
   return async dispatch => {
-    const subjects = (await axios.get("api/subjects")).data;
+    const subjects = (await axios.get("/api/subjects")).data;
     dispatch(setSubjectAction(subjects));
   };
 };
@@ -80,12 +80,13 @@ const updateUser = (id, payload) => async dispatch => {
 };
 
 const onLogin = user => {
+  console.log("ON LOGIN ", user);
   return async dispatch => {
     await axios
       .post("/api/login", user)
       .then(response => {
-        dispatch(setLoginSuccess(response.data))
-        history.push('/subjects');
+        dispatch(setLoginSuccess(response.data));
+        history.push("/#/subjects");
       })
       .catch(e => {
         return dispatch(setLoginError(e.message));

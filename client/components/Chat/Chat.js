@@ -18,7 +18,8 @@ class Chat extends Component {
     this.state = {
       room: "APP",
       body: "",
-      subjectId: ""
+      subjectId: "",
+      active: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,6 +70,19 @@ class Chat extends Component {
     }
   }
 
+  nodeSelect = ev => {
+    const currentState = this.state.active;
+    this.setState({ active: !currentState });
+    const bgColor = ev.target.style.backgroundColor;
+    if (!currentState) {
+      ev.target.style.backgroundColor = "#000";
+    } else {
+      ev.target.style.backgroundColor = "#999";
+    }
+
+    console.log("CHANGED", ev.target);
+  };
+
   render() {
     const subject = this.props.subjects.filter(
       subject => subject.id === this.props.match.params.id
@@ -77,7 +91,7 @@ class Chat extends Component {
       tree => tree.subjectId === subject[0].id
     );
     if (!tree.length) {
-      this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
+      // this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
     }
     console.log("PROPS Nodes ", this.props.nodes);
     console.log("PROPS SUBJECTS ", this.props);
@@ -102,7 +116,11 @@ class Chat extends Component {
               <ul className={"messages"}>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
-                    <li className={"chatBubble"} key={node.id}>
+                    <li
+                      className={"chatBubble"}
+                      key={node.id}
+                      onClick={this.nodeSelect}
+                    >
                       {node.body}
                     </li>
                   ) : (

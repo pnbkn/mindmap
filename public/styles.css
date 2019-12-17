@@ -42,6 +42,7 @@ form {
   padding: 1rem;
   font-size: 1.2rem;
 }
+
 .messages {
   width: 100%;
   margin: 2rem 0;
@@ -96,17 +97,18 @@ button {
   width: 100%;
 }
 .messages > .chatBubble:nth-child(odd) {
-  background: #ccc;
+  background: #999999;
   text-align: right;
   align-items: flex-end;
   margin-left: 40%;
 }
 .messages > .chatBubble:nth-child(even) {
-  background: #999;
+  background: #999999;
   text-align: left;
   align-items: flex-start;
   margin-left: 10%;
 }
+
 line {
   stroke: red;
   fill: none;
