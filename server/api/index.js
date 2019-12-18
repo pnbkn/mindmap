@@ -40,7 +40,11 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/register", (req, res, next) => {
-  const newuser = {name: req.body.name, email: req.body.email, password: req.body.password}
+  const newuser = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  };
   User.create(newuser)
     .then(user => {
       req.login(user, err => (err ? next(err) : res.json(user)));
@@ -71,7 +75,7 @@ router.post("/nodes", (req, res, next) => {
     .catch(next);
 });
 router.get("/subjects", (req, res, next) => {
-  return Subject.findAll()
+  Subject.findAll()
     .then(subjects => res.send(subjects))
     .catch(next);
 });

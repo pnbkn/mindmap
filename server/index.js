@@ -9,15 +9,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", require("./api"));
 
-db.syncAndSeed().then(() => {
-  const server = app.listen(PORT, () =>
-    console.log(`kicking it on port ${PORT}`)
-  );
-  const io = socketIO(server);
-  require("./socket")(io);
-});
-
 app.use("/dist", express.static(path.join(__dirname, "..", "/dist")));
+
+// app.use("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "..", "public/index.html"));
+// });
 
 app.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
@@ -25,3 +21,12 @@ app.get("/", (req, res, next) => {
 app.get("/styles.css", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/styles.css"));
 });
+
+db.syncAndSeed().then(() => {
+  const server = app.listen(PORT, () =>
+    console.log(`kicking it on port ${PORT}`)
+  );
+  const io = socketIO(server);
+  require("./socket")(io);
+});
+module.exports = app;
