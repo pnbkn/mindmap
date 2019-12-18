@@ -20,14 +20,8 @@ passport.deserializeUser(async (id, done) => {
 });
 
 router.get("/users", (req, res, next) => {
-  User.findAll({ attributes: ["id", "email"] })
+  User.findAll({ attributes: ["id", "email", "name"] })
     .then(user => res.send(user))
-    .catch(next);
-});
-
-router.post("/users", (req, res, next) => {
-  User.create(req.body)
-    .then(user => res.status(201).send(user))
     .catch(next);
 });
 
@@ -46,9 +40,13 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/register", (req, res, next) => {
-  User.create(req.body)
+  const newuser = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  };
+  User.create(newuser)
     .then(user => {
-      req.session.user = user;
       req.login(user, err => (err ? next(err) : res.json(user)));
     })
     .catch(err => {
@@ -77,7 +75,7 @@ router.post("/nodes", (req, res, next) => {
     .catch(next);
 });
 router.get("/subjects", (req, res, next) => {
-  return Subject.findAll()
+  Subject.findAll()
     .then(subjects => res.send(subjects))
     .catch(next);
 });

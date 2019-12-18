@@ -15,7 +15,7 @@ import axios from "axios";
 
 const getUsers = () => {
   return async dispatch => {
-    const users = (await axios.get("api/users")).data;
+    const users = (await axios.get("/api/users")).data;
     dispatch(setUsers(users));
   };
 };
@@ -43,17 +43,14 @@ const createNode = payload => {
 
 const getSubjects = () => {
   return async dispatch => {
-    const subjects = (await axios.get("api/subjects")).data;
+    const subjects = (await axios.get("/api/subjects")).data;
     dispatch(setSubjectAction(subjects));
   };
 };
 
 const createSubject = payload => {
-  console.log("THUNKS START ", payload);
-
   return async dispatch => {
     const newSubject = await axios.post("/api/subjects", payload);
-    console.log("THUNKS DISPATCH ", newSubject.data);
     dispatch(createSubjectAction(newSubject.data));
   };
 };
