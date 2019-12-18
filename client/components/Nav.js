@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, HashRouter } from "react-router-dom";
+import { NavLink, HashRouter, BrowserRouter } from "react-router-dom";
 
 class Nav extends Component {
   render() {

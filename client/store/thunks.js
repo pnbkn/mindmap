@@ -9,7 +9,8 @@ import {
   setLoginError,
   setLoginSuccess,
   setTreeAction,
-  createTreeAction
+  createTreeAction,
+  SET_AUTH
 } from "./actions";
 import axios from "axios";
 import history from "../history.js";
@@ -25,7 +26,7 @@ const createUser = user => {
   return async dispatch => {
     const created = (await axios.post("/api/register", user)).data;
     dispatch(_createUser(created));
-    history.push("/subjects");
+    history.push("/");
   };
 };
 
@@ -86,15 +87,23 @@ const onLogin = user => {
       .post("/api/login", user)
       .then(response => {
         dispatch(setLoginSuccess(response.data));
-        history.push("/#/subjects");
+        history.push("/");
       })
       .catch(e => {
         return dispatch(setLoginError(e.message));
       });
   };
 };
+
+const attemptSessionLogin = () => {
+  return async dispatch => {
+    const auth = (await axios.get("/api/login")).data;
+    dispatch({ type: SET_AUTH, auth });
+  };
+};
 export {
   getUsers,
+  attemptSessionLogin,
   createUser,
   updateUser,
   onLogin,
@@ -106,5 +115,6 @@ export {
   createSubjectAction,
   setSubjectAction,
   getTrees,
-  createTree
+  createTree,
+  SET_AUTH
 };
