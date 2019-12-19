@@ -4,10 +4,10 @@ import { Register } from "./Register";
 import { HashRouter, BrowserRouter } from "react-router-dom";
 
 export const Home = props => {
-  console.log("LOGIN ", props);
   return (
     <div>
-      <Login />
+      {/* passing props to the chil component so it can redirect */}
+      <Login {...props} />
     </div>
   );
 };

@@ -13,7 +13,6 @@ import {
   SET_AUTH
 } from "./actions";
 import axios from "axios";
-import history from "../history.js";
 
 const getUsers = () => {
   return async dispatch => {
@@ -26,7 +25,6 @@ const createUser = user => {
   return async dispatch => {
     const created = (await axios.post("/api/register", user)).data;
     dispatch(_createUser(created));
-    history.push("/");
   };
 };
 
@@ -52,11 +50,8 @@ const getSubjects = () => {
 };
 
 const createSubject = payload => {
-  console.log("THUNKS START ", payload);
-
   return async dispatch => {
     const newSubject = await axios.post("/api/subjects", payload);
-    console.log("THUNKS DISPATCH ", newSubject.data);
     dispatch(createSubjectAction(newSubject.data));
   };
 };
@@ -87,7 +82,6 @@ const onLogin = user => {
       .post("/api/login", user)
       .then(response => {
         dispatch(setLoginSuccess(response.data));
-        history.push("/");
       })
       .catch(e => {
         return dispatch(setLoginError(e.message));

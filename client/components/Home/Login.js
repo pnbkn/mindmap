@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { onLogin } from "../../store/index.js";
 import { Link } from "react-router-dom";
-import history from "../../history";
 
 class _Login extends React.Component {
   constructor() {
@@ -12,27 +11,30 @@ class _Login extends React.Component {
       password: ""
     };
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
+
   onChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
-  onSubmit(e) {
+
+  login = e => {
     e.preventDefault();
     try {
       this.props.onLogin(this.state);
-      // history.push("/subjects");
+      this.props.history.push("/subjects");
     } catch (er) {
       console.log(er);
     }
-  }
+  };
+
   render() {
     const { email, password } = this.state;
-    const { onSubmit } = this;
+    const { login } = this;
     const { onChange } = this;
+
     return (
       <div className="login">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={login}>
           <div>
             <label>Email Address</label>
             <input
@@ -55,7 +57,7 @@ class _Login extends React.Component {
               required
             />
           </div>
-          <button className="onLogin" type="submit">
+          <button type="submit" className="onLogin">
             Login
           </button>
           <p>

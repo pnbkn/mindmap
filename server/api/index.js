@@ -20,6 +20,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 router.get("/users", (req, res, next) => {
+  console.log("USESR ", req.body);
   User.findAll({ attributes: ["id", "email", "name"] })
     .then(user => res.send(user))
     .catch(next);
@@ -75,7 +76,7 @@ router.post("/nodes", (req, res, next) => {
     .catch(next);
 });
 router.get("/subjects", (req, res, next) => {
-  return Subject.findAll()
+  Subject.findAll()
     .then(subjects => res.send(subjects))
     .catch(next);
 });
