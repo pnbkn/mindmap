@@ -21,7 +21,12 @@ class _Register extends React.Component {
 
   onSubmit(ev) {
     ev.preventDefault();
-    this.props.createUser({ ...this.state });
+    try {
+      this.props.createUser({ ...this.state });
+      this.props.history.push("/subjects");
+    } catch (er) {
+      console.log(er);
+    }
   }
 
   render() {

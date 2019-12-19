@@ -5,6 +5,7 @@ const conn = require("./conn");
 const User = require("./models/User");
 const Subject = require("./models/Subject");
 const Node = require("./models/Node");
+const Tree = require("./models/Tree");
 
 const syncAndSeed = require("./syncandseed");
 
@@ -18,8 +19,10 @@ User.hasMany(Node);
 Node.belongsTo(Subject);
 Subject.hasMany(Node);
 
-Node.belongsTo(Node, { as: "parent" });
-Node.hasMany(Node, { as: "child", foreignKey: "parentId" });
+Subject.hasOne(Tree);
+
+Tree.belongsTo(Tree, { as: "parent" });
+Tree.hasMany(Tree, { as: "child", foreignKey: "parentId" });
 
 module.exports = {
   syncAndSeed,
@@ -27,6 +30,7 @@ module.exports = {
   models: {
     User,
     Subject,
-    Node
+    Node,
+    Tree
   }
 };

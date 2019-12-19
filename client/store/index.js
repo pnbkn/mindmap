@@ -10,7 +10,9 @@ import {
   createNode,
   createSubject,
   getSubjects,
-  getNodes
+  getNodes,
+  getTrees,
+  createTree
 } from "./thunks.js";
 
 // const store = createStore(reducer, applyMiddleware(thunkMiddleware));
@@ -25,5 +27,7 @@ export {
   createNode,
   getNodes,
   createSubject,
-  getSubjects
+  getSubjects,
+  getTrees,
+  createTree
 };

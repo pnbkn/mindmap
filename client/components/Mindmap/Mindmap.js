@@ -1,4 +1,6 @@
 import * as d3 from "d3";
+import { connect } from "react-redux";
+import store, { createTree, getTrees, getSubjects } from "../../store/";
 
 const generateTree = ideas => {
   const topParent = ideas.find(idea => idea.parentId === null);
@@ -17,9 +19,9 @@ const generateParents = (ideas, parent) => {
 };
 
 export default class MindMap {
-  constructor(element, nodes) {
-    const table = generateTree(nodes);
-    console.log("nodes", nodes);
+  constructor(element, trees) {
+    const table = generateTree(trees);
+    console.log("nodes", trees);
     console.log("table", table);
     const dataStructure = d3.hierarchy(table);
 
@@ -49,19 +51,23 @@ export default class MindMap {
       .attr("r", 5);
     const content = svg
       .append("g")
+      .attr("className", "textTree")
       .selectAll("text")
       .data(information.descendants());
     content
       .enter()
       .append("text")
       .text(function(d) {
-        return d.data.body;
+        return d.data.idea;
       })
       .attr("x", function(d) {
         return d.y - 6;
       })
       .attr("y", function(d) {
         return d.x - 8;
+      })
+      .attr("id", function(d) {
+        return d.data.id;
       });
     const connections = svg
       .append("g")
@@ -84,3 +90,16 @@ export default class MindMap {
       });
   }
 }
+
+// const mapStateToProps = state => ({
+//   trees: state.trees,
+//   subjects: state.subjects
+// });
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     postTree: _tree => dispatch(createNode(_tree)),
+//     getTrees: () => dispatch(getTrees()),
+//     getSubjects: () => dispatch(getSubjects())
+//   };
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(Tree);
