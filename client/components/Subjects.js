@@ -2,18 +2,22 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import store, { createSubject, createTree, getSubjects } from "../store";
+import axios from "axios";
 // import { link } from "fs";
 
 class Subjects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      subjects: [],
+      userId: this.props.match.params.id
     };
   }
 
   async componentDidMount() {
-    await store.dispatch(getSubjects());
+    const subjects = (await axios.get(`/api/welcome/${this.props.match.params.id}`)).data
+    this.setState({subjects})
   }
 
   async create(e) {
@@ -23,7 +27,6 @@ class Subjects extends Component {
 
   render() {
     const { name } = this.state;
-    console.log("subjects", this.props.subjects);
     return (
       <div className="container">
         <form onSubmit={e => this.create(e)}>
@@ -42,7 +45,7 @@ class Subjects extends Component {
         <br />
         <div className="container">
           <ul className="list-group">
-            {this.props.subjects.map(subject => (
+            {this.state.subjects.map(subject => (
               <Link key={subject.id} to={`/subjects/${subject.id}`}>
                 <li key={subject.id} className="list-group-item">
                   {subject.name}

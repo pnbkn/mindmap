@@ -3,6 +3,16 @@ const passport = require("passport");
 const express = require("express");
 const db = require("../db/db");
 const { Subject, User, Node, Tree } = require("../db/models/index");
+const {conn} = db
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const thestore =  new SequelizeStore({ db: conn });
+router.use(session({
+  secret: 'mindmap1',
+  store: thestore,
+  resave: false,
+  proxy: true
+}));
 
 router.use(express.json());
 router.use(passport.initialize());
@@ -25,6 +35,9 @@ router.get("/users", (req, res, next) => {
     .catch(next);
 });
 
+///sync sessions to store
+thestore.sync();
+
 router.post("/login", (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then(user => {
@@ -36,6 +49,12 @@ router.post("/login", (req, res, next) => {
         req.login(user, err => (err ? next(err) : res.json(user)));
       }
     })
+    .catch(next);
+});
+
+router.get("/welcome/:id", (req, res, next) => {
+  Subject.findAll({ where: { userId : req.params.id } })
+    .then(subjects => res.send(subjects))
     .catch(next);
 });
 

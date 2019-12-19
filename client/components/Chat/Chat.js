@@ -76,18 +76,18 @@ class Chat extends Component {
     const tree = this.props.trees.filter(
       tree => tree.subjectId === subject[0].id
     );
-    if (!tree.length) {
-      this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
-    }
+    // if (!tree.length) {
+    //   this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
+    // }
     console.log("PROPS Nodes ", this.props.nodes);
     console.log("PROPS SUBJECTS ", this.props);
     console.log("foundChat", tree);
     console.log("subjectChat", subject);
     const treeList = document.querySelector("g");
 
-    if (treeList) {
-      console.log("textTree", treeList.children[1].children);
-    }
+    // if (treeList) {
+    //   console.log("textTree", treeList.children[1].children);
+    // }
 
     return (
       <div className="container">

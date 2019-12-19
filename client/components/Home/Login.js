@@ -17,15 +17,18 @@ class _Login extends React.Component {
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
-  login = e => {
-    e.preventDefault();
-    try {
-      this.props.onLogin(this.state);
-      this.props.history.push("/subjects");
-    } catch (er) {
-      console.log(er);
+  login = async(e) => {
+    e.preventDefault()
+    await this.props.onLogin(this.state)
+    console.log(this.props.login.user)
+    if(!this.props.login.user.id){
+      return "error message"
+    } 
+    else {
+      const id = this.props.login.user.id
+      this.props.history.push(`/welcome/${id}`)
     }
-  };
+  }
 
   render() {
     const { email, password } = this.state;
@@ -69,12 +72,14 @@ class _Login extends React.Component {
   }
 }
 
+const mapState = ({login}) => ({login})
+
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: user => dispatch(onLogin(user))
   };
 };
 
-const Login = connect(null, mapDispatchToProps)(_Login);
+const Login = connect(mapState, mapDispatchToProps)(_Login);
 
 export { Login };
