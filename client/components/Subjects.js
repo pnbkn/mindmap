@@ -34,7 +34,7 @@ class Subjects extends Component {
               this.setState({ [ev.target.name]: ev.target.value })
             }
           />
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" id="add-subject">
             Add Subject
           </button>
         </form>

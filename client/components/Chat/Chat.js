@@ -119,13 +119,12 @@ class Chat extends Component {
                     type="text"
                     value={this.state.body}
                     autoComplete="off"
-                    className="form-control"
                     placeholder="Post Your Idea Here"
                     onChange={this.handleChange}
                   />
                 </div>
                 <div>
-                  <button type="submit" className="btn-primary">
+                  <button type="submit" className="btn-primary" id='chat-send'>
                     Send
                   </button>
                 </div>
