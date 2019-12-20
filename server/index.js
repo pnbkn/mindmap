@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 8000;
-const session = require("express-session");
+// const session = require("express-session");
 const db = require("./db/db");
 const socketIO = require("socket.io");
 app.use(express.json());
