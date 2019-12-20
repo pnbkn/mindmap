@@ -62,7 +62,7 @@ class Subjects extends Component {
         <br />
         <div className="container">
           <ul className="list-group">
-            {this.state.subjects.map(subject => (
+            {this.props.subjects.map(subject => (
               <Link key={subject.id} to={`/subjects/${subject.id}`}>
                 <li key={subject.id} className="list-group-item">
                   {subject.name}
