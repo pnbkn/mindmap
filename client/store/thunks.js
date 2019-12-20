@@ -64,6 +64,7 @@ const getTrees = () => {
 };
 
 const createTree = payload => {
+  console.log("PAYLOAD ", payload);
   return async dispatch => {
     const newTree = await axios.post("/api/trees", payload);
     dispatch(createTreeAction(newTree.data));

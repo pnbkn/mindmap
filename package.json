@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon server/index.js --ignore dist/ --ignore src/ & npm run webpack",
+    "start:dev": "DATABASE_URL=postgres://localhost/mindmap nodemon server/index.js --ignore dist/ --ignore src/ & npm run webpack:dev",
+    "webpack": "webpack",
+    "webpack:dev": "webpack --watch --mode=development",
     "start": "node server/index.js",
-    "webpack": "webpack --watch --mode=development",
-    "build": "webpack --mode=production",
-    "postinstall": "npm run build"
+    "postinstall": "npm run webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexpini/mindmap.git"
+    "url": "git+https://github.com/pnbkn/mindmap.git"
   },
   "keywords": [],
   "author": "",
@@ -51,6 +51,7 @@
     "connect-session-sequelize": "^6.0.0",
     "d3": "^5.14.2",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "passport": "^0.4.1",
     "pg": "^7.14.0",
     "react-bootstrap": "^1.0.0-beta.16",

@@ -19,13 +19,9 @@ const generateParents = (ideas, parent) => {
 export default class MindMap {
   constructor(element, trees) {
     const table = generateTree(trees);
-    console.log("nodes", trees);
-    console.log("table", table);
     const dataStructure = d3.hierarchy(table);
-
-    const treeLayout = d3.tree().size([300, 150]);
+    const treeLayout = d3.tree().size([500, 400]);
     const information = treeLayout(dataStructure);
-    console.log(information.links());
     const svg = d3
       .select(element)
       .append("svg")
@@ -33,6 +29,25 @@ export default class MindMap {
       .attr("height", 500)
       .append("g")
       .attr("transform", "translate(20,20)");
+    const connections = svg
+      .append("g")
+      .selectAll("line")
+      .data(information.links());
+    connections
+      .enter()
+      .append("line")
+      .attr("x1", function(d) {
+        return d.source.x;
+      })
+      .attr("y1", function(d) {
+        return d.source.y;
+      })
+      .attr("x2", function(d) {
+        return d.target.x;
+      })
+      .attr("y2", function(d) {
+        return d.target.y;
+      });
     const circles = svg
       .append("g")
       .selectAll("circle")
@@ -66,25 +81,6 @@ export default class MindMap {
       })
       .attr("id", function(d) {
         return d.data.id;
-      });
-    const connections = svg
-      .append("g")
-      .selectAll("line")
-      .data(information.links());
-    connections
-      .enter()
-      .append("line")
-      .attr("x1", function(d) {
-        return d.source.x;
-      })
-      .attr("y1", function(d) {
-        return d.source.y;
-      })
-      .attr("x2", function(d) {
-        return d.target.x;
-      })
-      .attr("y2", function(d) {
-        return d.target.y;
       });
   }
 }

@@ -19,15 +19,27 @@ class _Register extends React.Component {
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
-  onSubmit(ev) {
-    ev.preventDefault();
-    try {
-      this.props.createUser({ ...this.state });
-      this.props.history.push("/subjects");
-    } catch (er) {
-      console.log(er);
+  // onSubmit(ev) {
+  //   ev.preventDefault();
+  //   try {
+  //     this.props.createUser({ ...this.state });
+  //     const id = this.props.login.user.id;
+  //     this.props.history.push(`/welcome/${id}`);
+  //   } catch (er) {
+  //     console.log(er);
+  //   }
+  // }
+
+  onSubmit = async e => {
+    e.preventDefault();
+    await this.props.createUser(this.state);
+    if (!this.props.login.user.id) {
+      return "error message";
+    } else {
+      const id = this.props.login.user.id;
+      this.props.history.push(`/welcome/${id}`);
     }
-  }
+  };
 
   render() {
     const { name, email, password } = this.state;
@@ -79,10 +91,12 @@ class _Register extends React.Component {
   }
 }
 
+const mapStateToProps = ({ login }) => ({ login });
+
 const mapDispatchToProps = dispatch => ({
   createUser: user => dispatch(createUser(user))
 });
 
-const Register = connect(null, mapDispatchToProps)(_Register);
+const Register = connect(mapStateToProps, mapDispatchToProps)(_Register);
 
 export { Register };

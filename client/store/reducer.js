@@ -10,10 +10,17 @@ import {
   SET_SUBJECT,
   CREATE_SUBJECT,
   SET_TREE,
-  CREATE_TREE
+  CREATE_TREE,
+  SET_AUTH
 } from "./actions.js";
 
 const reducer = combineReducers({
+  auth: (state = [], action) => {
+    if (action.type === SET_AUTH) {
+      state = action.auth;
+    }
+    return state;
+  },
   users: (state = [], action) => {
     if (action.type === SET_USERS) {
       return action.users;
@@ -29,7 +36,7 @@ const reducer = combineReducers({
     return state;
   },
   login: (state = [], action) => {
-    if (action.type === SET_LOGIN_SUCCESS) {
+    if (action.type === SET_LOGIN_SUCCESS || action.type === CREATE_USER) {
       return {
         ...state,
         email: "",
