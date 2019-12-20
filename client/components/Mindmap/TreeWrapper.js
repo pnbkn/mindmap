@@ -5,8 +5,8 @@ import store, { getTrees, getNodes } from "../../store/";
 
 class TreeWrapper extends Component {
   async componentDidMount() {
-    store.dispatch(getTrees());
-    store.dispatch(getNodes());
+    await store.dispatch(getTrees());
+    await store.dispatch(getNodes());
     const trees = await this.props.trees.filter(
       tree => tree.subjectId === this.props.match
     );
