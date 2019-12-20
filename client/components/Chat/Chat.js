@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import * as d3 from "d3";
 import store, {
   createNode,
   getNodes,
@@ -70,24 +71,26 @@ class Chat extends Component {
   }
 
   render() {
-    const subject = this.props.subjects.filter(
-      subject => subject.id === this.props.match.params.id
-    );
-    const tree = this.props.trees.filter(
-      tree => tree.subjectId === subject[0].id
-    );
-    // if (!tree.length) {
-    //   this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
-    // }
-    console.log("PROPS Nodes ", this.props.nodes);
-    console.log("PROPS SUBJECTS ", this.props);
-    console.log("foundChat", tree);
-    console.log("subjectChat", subject);
-    const treeList = document.querySelector("g");
+    let ideaObj = {};
+    const { postTree } = this.props;
+    setTimeout(() => {
+      const chatIdea = document.querySelector(".messages");
+      ideaObj.subjectId = this.props.match.params.id;
+      chatIdea.addEventListener("click", e => {
+        if (e.target.tagName === "LI") {
+          const ideaChat = e.target.innerHTML;
+          ideaObj.idea = ideaChat;
+        }
+      });
+      d3.selectAll("text").on("click", function(d) {
+        d3.select(this);
 
-    // if (treeList) {
-    //   console.log("textTree", treeList.children[1].children);
-    // }
+        ideaObj.parentId = d.data.id;
+        postTree(ideaObj);
+
+        console.log(ideaObj);
+      });
+    }, 0);
 
     return (
       <div className="container">
@@ -124,7 +127,7 @@ class Chat extends Component {
                   />
                 </div>
                 <div>
-                  <button type="submit" className="btn-primary" id='chat-send'>
+                  <button type="submit" className="btn-primary" id="chat-send">
                     Send
                   </button>
                 </div>

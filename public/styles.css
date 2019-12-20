@@ -60,6 +60,7 @@ form {
   margin: 2rem 0;
   padding: 1rem;
 }
+
 .messages {
   width: 100%;
   margin: 2rem 0;
@@ -159,6 +160,7 @@ button {
   align-items: flex-start;
   margin-left: 10%;
 }
+
 line {
   stroke: red;
   fill: none;

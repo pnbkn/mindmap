@@ -10,6 +10,7 @@ const CREATE_SUBJECT = "CREATE_SUBJECT";
 const SET_SUBJECT = "SET_SUBJECT";
 const SET_TREE = "SET_TREE";
 const CREATE_TREE = "CREATE_TREE";
+const SET_AUTH = "SET_AUTH";
 
 //Action Creators
 const setUsers = users => ({ type: SET_USERS, users });
@@ -50,5 +51,6 @@ export {
   SET_TREE,
   CREATE_TREE,
   setTreeAction,
-  createTreeAction
+  createTreeAction,
+  SET_AUTH
 };

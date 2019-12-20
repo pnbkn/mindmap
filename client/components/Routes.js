@@ -5,9 +5,15 @@ import Chat from "./Chat/Chat";
 import { Login } from "./Home/Login";
 import { Register } from "./Home/Register";
 import Subjects from "./Subjects";
+import store, { attemptSessionLogin } from "../store";
 
 class Routes extends Component {
+  async componentDidMount() {
+    store.dispatch(attemptSessionLogin());
+  }
+
   render() {
+    console.log("LOGIN ROUTEs ", this.props);
     return (
       <Switch>
         <Route exact path="/" component={Home} />

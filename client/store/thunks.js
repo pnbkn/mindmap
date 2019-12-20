@@ -9,7 +9,8 @@ import {
   setLoginError,
   setLoginSuccess,
   setTreeAction,
-  createTreeAction
+  createTreeAction,
+  SET_AUTH
 } from "./actions";
 import axios from "axios";
 
@@ -75,6 +76,7 @@ const updateUser = (id, payload) => async dispatch => {
 };
 
 const onLogin = user => {
+  console.log("ON LOGIN ", user);
   return async dispatch => {
     await axios
       .post("/api/login", user)
@@ -86,8 +88,16 @@ const onLogin = user => {
       });
   };
 };
+
+const attemptSessionLogin = () => {
+  return async dispatch => {
+    const auth = (await axios.get("/api/login")).data;
+    dispatch({ type: SET_AUTH, auth });
+  };
+};
 export {
   getUsers,
+  attemptSessionLogin,
   createUser,
   updateUser,
   onLogin,
@@ -99,5 +109,6 @@ export {
   createSubjectAction,
   setSubjectAction,
   getTrees,
-  createTree
+  createTree,
+  SET_AUTH
 };

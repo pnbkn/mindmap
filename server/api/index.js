@@ -30,6 +30,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 router.get("/users", (req, res, next) => {
+  console.log("USESR ", req.body);
   User.findAll({ attributes: ["id", "email", "name"] })
     .then(user => res.send(user))
     .catch(next);
@@ -70,7 +71,7 @@ router.post("/register", (req, res, next) => {
     })
     .catch(err => {
       if (err.name === "SequelizeUniqueConstraintError") {
-        res.status(401).send("User already xists");
+        res.status(401).send("User already exists");
       } else {
         next(err);
       }
