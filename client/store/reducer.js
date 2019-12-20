@@ -36,7 +36,7 @@ const reducer = combineReducers({
     return state;
   },
   login: (state = [], action) => {
-    if (action.type === SET_LOGIN_SUCCESS) {
+    if (action.type === SET_LOGIN_SUCCESS || action.type === CREATE_USER) {
       return {
         ...state,
         email: "",

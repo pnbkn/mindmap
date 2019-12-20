@@ -32,7 +32,6 @@ passport.deserializeUser(async (id, done) => {
 });
 
 router.get("/users", (req, res, next) => {
-  console.log("USESR ", req.body);
   User.findAll({ attributes: ["id", "email", "name"] })
     .then(user => res.send(user))
     .catch(next);
@@ -122,12 +121,14 @@ router.post("/subjects", (req, res, next) => {
 });
 
 router.get("/trees", (req, res, next) => {
+  console.log("API GET TREE ", req.body);
   return Tree.findAll()
     .then(trees => res.send(trees))
     .catch(next);
 });
 
 router.post("/trees", (req, res, next) => {
+  console.log("API POST TREE ", req.body);
   return Tree.create(req.body)
     .then(tree => res.status(201).send(tree))
     .catch(next);

@@ -28,6 +28,7 @@ class Chat extends Component {
     store.dispatch(getSubjects());
     store.dispatch(getTrees());
     await this.props.getMessages();
+    await this.props.getTrees();
 
     socket.on(this.state.room, msg => {
       if (msg) {
@@ -50,7 +51,6 @@ class Chat extends Component {
     };
     await this.props.postNode(node);
     //sends the body to the socket event emitter
-    console.log("SUBMIT ", this.state.body);
     socket.emit(this.state.room, { body: this.state.body });
 
     this.setState({ room: "APP", body: "", subjectId: "" });
@@ -64,11 +64,10 @@ class Chat extends Component {
     }
   };
 
-  renderTree() {
+  renderTree = ev => {
     if (this.props.trees.length == 0) {
       return "No data yet";
     } else {
-      console.log("nodesTree", this.props.trees);
       return (
         <TreeWrapper
           trees={this.props.trees}
@@ -76,10 +75,11 @@ class Chat extends Component {
         />
       );
     }
-  }
+  };
 
   render() {
     let ideaObj = {};
+
     const { postTree } = this.props;
     setTimeout(() => {
       const chatIdea = document.querySelector(".messages");
@@ -95,8 +95,6 @@ class Chat extends Component {
 
         ideaObj.parentId = d.data.id;
         postTree(ideaObj);
-
-        console.log(ideaObj);
       });
     }, 0);
 

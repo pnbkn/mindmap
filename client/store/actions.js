@@ -27,7 +27,9 @@ const createSubjectAction = subject => {
   return { type: CREATE_SUBJECT, subject: subject };
 };
 const setTreeAction = trees => ({ type: SET_TREE, trees });
-const createTreeAction = tree => ({ type: CREATE_TREE, tree });
+const createTreeAction = tree => {
+  return { type: CREATE_TREE, tree };
+};
 
 export {
   setUsers,

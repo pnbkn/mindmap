@@ -19,13 +19,9 @@ const generateParents = (ideas, parent) => {
 export default class MindMap {
   constructor(element, trees) {
     const table = generateTree(trees);
-    console.log("nodes", trees);
-    console.log("table", table);
     const dataStructure = d3.hierarchy(table);
-
     const treeLayout = d3.tree().size([500, 400]);
     const information = treeLayout(dataStructure);
-    console.log(information.links());
     const svg = d3
       .select(element)
       .append("svg")
