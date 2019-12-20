@@ -1,25 +1,44 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
   box-sizing: border-box;
 }
 body {
+  background-color: #eae2d4;
+  font-family: "raleway";
+  font-weight: 700;
+  /* background-image: url("https://i.imgur.com/eh8xlAZ.jpg");
+  background-size: cover; */
+}
+p {
+  font-family: "courier";
 }
 .nav {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-color: #1b1b1b;
+  border-bottom: 1px solid #141311;
   margin: 0;
   padding: 1rem;
   width: 100%;
   height: 4rem;
   font-size: 1.2rem;
-  color: #fff;
+  font-family: "impact", sans-serif;
+}
+a {
+  color: #ff5000;
+}
+a:hover {
+  color: #ffb700;
+  text-decoration: line-through;
 }
 .nav a {
-  color: #fff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ff5000;
+  color: transparent;
+}
+.nav :hover {
+  text-decoration: line-through;
 }
 .chat {
   display: flex;
@@ -40,20 +59,35 @@ form {
   align-items: center;
   margin: 2rem 0;
   padding: 1rem;
-  font-size: 1.2rem;
 }
 
 .messages {
   width: 100%;
   margin: 2rem 0;
+  font-size: 0.5rem;
 }
 
 .chat button {
   height: 3rem;
   width: 100%;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
+
+.btn-primary {
+  background-color: #ff5000;
+  border: 0;
+  padding: 0.75rem;
+}
+
+.btn-primary:hover {
+  background-color: #141311;
+}
+
+#add-subject {
+  margin: 1rem;
+}
+
 
 .login,
 .register {
@@ -63,19 +97,35 @@ form {
   margin: 2rem;
   padding: 2rem;
   box-sizing: border-box;
-  border: 0.075rem solid #ccc;
+  border: 0.075rem solid #141311;
   border-radius: 1.5rem;
+
 }
 
 .login input,
-button,
-.register input,
-button {
+.register input{
   display: flex;
   justify-content: center;
   height: 1.5rem;
   width: 20rem;
   font-size: 0.75rem;
+  margin: 0 0 1rem 0;
+}
+.login
+button,
+.register
+button {
+  display: flex;
+  justify-content: center;
+  padding:  0.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-family: 'impact';
+  margin: 0 0 1rem 0;
+  border: #ff5000 solid 1px;
+  border-radius: 1.5rem;
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ff5000;
 }
 
 .chatBubble {
@@ -95,15 +145,17 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  border: 1px black solid;
+  border-radius: 25px;
 }
 .messages > .chatBubble:nth-child(odd) {
-  background: #999999;
+  background: #ff7400;
   text-align: right;
   align-items: flex-end;
   margin-left: 40%;
 }
 .messages > .chatBubble:nth-child(even) {
-  background: #999999;
+  background: #ffb700;
   text-align: left;
   align-items: flex-start;
   margin-left: 10%;
@@ -112,4 +164,23 @@ button {
 line {
   stroke: red;
   fill: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem;
+}
+
+.form-control {
+  margin: 0;
+}
+
+input {
+  background-color: white;
+  border-radius: 1.5rem;
+  border: #ff5000 solid 0.5px;
+  padding-left: 0.2rem;
+
 }

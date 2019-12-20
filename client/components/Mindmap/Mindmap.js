@@ -1,6 +1,4 @@
 import * as d3 from "d3";
-import { connect } from "react-redux";
-import store, { createTree, getTrees, getSubjects } from "../../store/";
 
 const generateTree = ideas => {
   const topParent = ideas.find(idea => idea.parentId === null);
@@ -25,7 +23,7 @@ export default class MindMap {
     console.log("table", table);
     const dataStructure = d3.hierarchy(table);
 
-    const treeLayout = d3.tree().size([300, 300]);
+    const treeLayout = d3.tree().size([300, 150]);
     const information = treeLayout(dataStructure);
     console.log(information.links());
     const svg = d3
@@ -43,10 +41,10 @@ export default class MindMap {
       .enter()
       .append("circle")
       .attr("cx", function(d) {
-        return d.y;
+        return d.x;
       })
       .attr("cy", function(d) {
-        return d.x;
+        return d.y;
       })
       .attr("r", 5);
     const content = svg
@@ -61,10 +59,10 @@ export default class MindMap {
         return d.data.idea;
       })
       .attr("x", function(d) {
-        return d.y - 6;
+        return d.x - 6;
       })
       .attr("y", function(d) {
-        return d.x - 8;
+        return d.y - 8;
       })
       .attr("id", function(d) {
         return d.data.id;
@@ -77,18 +75,16 @@ export default class MindMap {
       .enter()
       .append("line")
       .attr("x1", function(d) {
-        return d.source.y;
-      })
-      .attr("y1", function(d) {
         return d.source.x;
       })
+      .attr("y1", function(d) {
+        return d.source.y;
+      })
       .attr("x2", function(d) {
-        return d.target.y;
+        return d.target.x;
       })
       .attr("y2", function(d) {
-        return d.target.x;
+        return d.target.y;
       });
   }
 }
-
-//     

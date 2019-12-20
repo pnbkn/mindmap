@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import * as d3 from "d3";
 import store, {
   createNode,
   getNodes,
@@ -18,8 +19,7 @@ class Chat extends Component {
     this.state = {
       room: "APP",
       body: "",
-      subjectId: "",
-      active: false
+      subjectId: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,38 +70,27 @@ class Chat extends Component {
     }
   }
 
-  nodeSelect = ev => {
-    const currentState = this.state.active;
-    this.setState({ active: !currentState });
-    const bgColor = ev.target.style.backgroundColor;
-    if (!currentState) {
-      ev.target.style.backgroundColor = "#000";
-    } else {
-      ev.target.style.backgroundColor = "#999";
-    }
-
-    console.log("CHANGED", ev.target);
-  };
-
   render() {
-    const subject = this.props.subjects.filter(
-      subject => subject.id === this.props.match.params.id
-    );
-    const tree = this.props.trees.filter(
-      tree => tree.subjectId === subject[0].id
-    );
-    if (!tree.length) {
-      // this.props.postTree({ idea: subject[0].name, subjectId: subject[0].id });
-    }
-    console.log("PROPS Nodes ", this.props.nodes);
-    console.log("PROPS SUBJECTS ", this.props);
-    console.log("foundChat", tree);
-    console.log("subjectChat", subject);
-    const treeList = document.querySelector("g");
+    let ideaObj = {};
+    const { postTree } = this.props;
+    setTimeout(() => {
+      const chatIdea = document.querySelector(".messages");
+      ideaObj.subjectId = this.props.match.params.id;
+      chatIdea.addEventListener("click", e => {
+        if (e.target.tagName === "LI") {
+          const ideaChat = e.target.innerHTML;
+          ideaObj.idea = ideaChat;
+        }
+      });
+      d3.selectAll("text").on("click", function(d) {
+        d3.select(this);
 
-    if (treeList) {
-      console.log("textTree", treeList.children[1].children);
-    }
+        ideaObj.parentId = d.data.id;
+        postTree(ideaObj);
+
+        console.log(ideaObj);
+      });
+    }, 0);
 
     return (
       <div className="container">
@@ -116,11 +105,7 @@ class Chat extends Component {
               <ul className={"messages"}>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
-                    <li
-                      className={"chatBubble"}
-                      key={node.id}
-                      onClick={this.nodeSelect}
-                    >
+                    <li className={"chatBubble"} key={node.id}>
                       {node.body}
                     </li>
                   ) : (
@@ -137,13 +122,12 @@ class Chat extends Component {
                     type="text"
                     value={this.state.body}
                     autoComplete="off"
-                    className="form-control"
                     placeholder="Post Your Idea Here"
                     onChange={this.handleChange}
                   />
                 </div>
                 <div>
-                  <button type="submit" className="btn-primary">
+                  <button type="submit" className="btn-primary" id="chat-send">
                     Send
                   </button>
                 </div>
