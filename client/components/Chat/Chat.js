@@ -56,6 +56,14 @@ class Chat extends Component {
     this.setState({ room: "APP", body: "", subjectId: "" });
   };
 
+  ideaSelected = ev => {
+    if (!ev.target.style.border) {
+      ev.target.style.border = "2px solid white";
+    } else {
+      ev.target.style.border = "";
+    }
+  };
+
   renderTree() {
     if (this.props.trees.length == 0) {
       return "No data yet";
@@ -105,7 +113,11 @@ class Chat extends Component {
               <ul className={"messages"}>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
-                    <li className={"chatBubble"} key={node.id}>
+                    <li
+                      className={"chatBubble"}
+                      key={node.id}
+                      onClick={this.ideaSelected}
+                    >
                       {node.body}
                     </li>
                   ) : (
