@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MindMap from "./MindMap";
+import MindMap from "./Mindmap";
 
 export default class TreeWrapper extends Component {
   async componentDidMount() {
