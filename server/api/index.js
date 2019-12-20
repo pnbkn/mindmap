@@ -54,6 +54,13 @@ router.post("/login", (req, res, next) => {
     })
     .catch(next);
 });
+router.get("/login", (req, res, next) => {
+  const user = req.session.passport;
+  if (user) {
+    return res.send(user);
+  }
+  next({ status: 401 });
+});
 
 router.get("/welcome/:id", (req, res, next) => {
   Subject.findAll({ where: { userId: req.params.id } })
