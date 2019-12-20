@@ -24,6 +24,9 @@ Subject.hasOne(Tree);
 Tree.belongsTo(Tree, { as: "parent" });
 Tree.hasMany(Tree, { as: "child", foreignKey: "parentId" });
 
+Tree.belongsTo(Subject);
+Subject.hasMany(Tree);
+
 module.exports = {
   syncAndSeed,
   conn,
