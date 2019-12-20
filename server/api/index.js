@@ -3,16 +3,18 @@ const passport = require("passport");
 const express = require("express");
 const db = require("../db/db");
 const { Subject, User, Node, Tree } = require("../db/models/index");
-const {conn} = db
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const thestore =  new SequelizeStore({ db: conn });
-router.use(session({
-  secret: 'mindmap1',
-  store: thestore,
-  resave: false,
-  proxy: true
-}));
+const { conn } = db;
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const thestore = new SequelizeStore({ db: conn });
+router.use(
+  session({
+    secret: "mindmap1",
+    store: thestore,
+    resave: false,
+    proxy: true
+  })
+);
 
 router.use(express.json());
 router.use(passport.initialize());
@@ -54,7 +56,7 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/welcome/:id", (req, res, next) => {
-  Subject.findAll({ where: { userId : req.params.id } })
+  Subject.findAll({ where: { userId: req.params.id } })
     .then(subjects => res.send(subjects))
     .catch(next);
 });
@@ -95,7 +97,7 @@ router.post("/nodes", (req, res, next) => {
     .catch(next);
 });
 router.get("/subjects", (req, res, next) => {
-  Subject.findAll()
+  Subject.findAll({ where: { userId: req.session.passport.user } })
     .then(subjects => res.send(subjects))
     .catch(next);
 });
