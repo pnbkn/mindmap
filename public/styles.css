@@ -42,6 +42,7 @@ a:hover {
 }
 .chat {
   display: flex;
+  margin-top: 2rem;
   flex-direction: column;
   align-items: center;
   justify-content: end;
@@ -52,6 +53,10 @@ form {
   width: 80%;
   align-items: center;
   margin-left: 10%;
+}
+
+.mindmap {
+  margin-top: 2.8rem;
 }
 .chat input {
   width: 100%;
@@ -88,7 +93,6 @@ form {
   margin: 1rem;
 }
 
-
 .login,
 .register {
   display: flex;
@@ -99,11 +103,10 @@ form {
   box-sizing: border-box;
   border: 0.075rem solid #141311;
   border-radius: 1.5rem;
-
 }
 
 .login input,
-.register input{
+.register input {
   display: flex;
   justify-content: center;
   height: 1.5rem;
@@ -111,15 +114,13 @@ form {
   font-size: 0.75rem;
   margin: 0 0 1rem 0;
 }
-.login
-button,
-.register
-button {
+.login button,
+.register button {
   display: flex;
   justify-content: center;
-  padding:  0.5rem 0.75rem 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 0.75rem;
-  font-family: 'impact';
+  font-family: "impact";
   margin: 0 0 1rem 0;
   border: #ff5000 solid 1px;
   border-radius: 1.5rem;
@@ -182,5 +183,4 @@ input {
   border-radius: 1.5rem;
   border: #ff5000 solid 0.5px;
   padding-left: 0.2rem;
-
 }

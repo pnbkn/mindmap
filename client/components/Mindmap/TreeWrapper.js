@@ -9,6 +9,6 @@ export default class TreeWrapper extends Component {
     new MindMap(this.refs.mindmap, trees);
   }
   render() {
-    return <div ref="mindmap"></div>;
+    return <div className={"mindmap"} ref="mindmap"></div>;
   }
 }
