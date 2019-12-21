@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { onLogin, onLogout } from "../../store/index.js";
+import { onLogin } from "../../store/index.js";
 import { Link } from "react-router-dom";
 
 class _Login extends React.Component {
@@ -35,7 +35,6 @@ class _Login extends React.Component {
     const { login } = this;
     const { onChange } = this;
 
-    if(!this.props.login.user) {
       return (
         <div className="login">
           <form onSubmit={login}>
@@ -70,19 +69,6 @@ class _Login extends React.Component {
           </form>
         </div>
       );
-    }
-    else {
-      return(
-        <div className="login">
-          <p>Hello! Welcome back to mindmap!</p>
-          <div>
-            <button className="onLogin" onClick={ () => this.props.onLogout(this.props.login.user) } >
-              Logout
-            </button>
-          </div>
-        </div>
-      )
-    }
   }
 }
 
@@ -91,7 +77,6 @@ const mapState = ({login}) => ({login})
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: user => dispatch(onLogin(user)),
-    onLogout: user => dispatch(onLogout(user))
   };
 };
 
