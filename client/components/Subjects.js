@@ -45,7 +45,9 @@ class Subjects extends Component {
   render() {
     const { name } = this.state;
     return (
+
       <div className="container">
+      <h2>Create New Project</h2>
         <form onSubmit={e => this.create(e)}>
           <input
             name="name"

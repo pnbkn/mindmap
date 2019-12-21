@@ -103,11 +103,11 @@ class Chat extends Component {
         <div className="row">
           <div className="col">
             <div className={"chat"}>
-              <h2>
+              <h3>
                 {this.props.subjects.map(subject =>
                   subject.id === this.props.match.params.id ? subject.name : ""
                 )}
-              </h2>
+              </h3>
               <ul className={"messages"}>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (

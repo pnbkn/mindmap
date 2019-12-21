@@ -11,11 +11,12 @@ class Nav extends Component {
   render() {
     console.log("NAV ", this.props.auth.user);
     return (
-      <div className={"nav"}>
-        <HashRouter>
+      <div>
+
+        {/* <HashRouter>
           <NavLink to="/">Home</NavLink>
           <NavLink to={`/welcome/${this.props.auth.user}`}>Subjects</NavLink>
-        </HashRouter>
+        </HashRouter> */}
       </div>
     );
   }
