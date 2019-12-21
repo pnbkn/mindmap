@@ -7,7 +7,7 @@ body {
   font-family: "raleway";
   font-weight: 700;
   /* background-image: url("https://i.imgur.com/eh8xlAZ.jpg");
- background-size: cover; */
+  background-size: cover; */
 }
 h1 {
   text-align: center;
@@ -150,7 +150,6 @@ form {
 .login,
 .register {
   display: flex;
-  justify-content: space-around;
   font-size: 0.75rem;
   margin: 2rem;
   padding: 2rem;
