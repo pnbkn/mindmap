@@ -15,6 +15,7 @@ class Nav extends Component {
         <HashRouter>
           <NavLink to="/">Home</NavLink>
           <NavLink to={`/welcome/${this.props.auth.user}`}>Subjects</NavLink>
+          <NavLink to={"/user"}>User</NavLink>
         </HashRouter>
       </div>
     );
