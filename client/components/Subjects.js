@@ -49,7 +49,7 @@ class Subjects extends Component {
 
       <div className="container">
       <h2>Create New Project</h2>
-        <form onSubmit={e => this.create(e)}>
+        <form id='createNewProject' onSubmit={e => this.create(e)}>
           <input
             name="name"
             value={name}
@@ -58,7 +58,7 @@ class Subjects extends Component {
             }
           />
           <button type="submit" className="btn btn-primary" id="add-subject">
-            Add Subject
+            Create
           </button>
         </form>
         <br />
