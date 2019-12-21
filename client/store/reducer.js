@@ -4,6 +4,7 @@ import {
   CREATE_USER,
   UPDATE_USER,
   SET_LOGIN_SUCCESS,
+  SET_LOGOUT_SUCCESS,
   SET_LOGIN_ERROR,
   CREATE_NODE,
   SET_NODES,
@@ -47,6 +48,9 @@ const reducer = combineReducers({
     }
     if (action.type === SET_LOGIN_ERROR) {
       return { ...state, email: "", password: "", user: null, err: action.err };
+    }
+    if (action.type === SET_LOGOUT_SUCCESS) {
+      return { ...state, email: "", password: "", user: null, err: null };
     }
     return state;
   },

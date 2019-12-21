@@ -35,40 +35,40 @@ class _Login extends React.Component {
     const { login } = this;
     const { onChange } = this;
 
-    return (
-      <div className="login">
-        <form onSubmit={login}>
-          <div>
-            <label>Email Address</label>
-            <input
-              name="email"
-              type="email"
-              placeholder="enter your reistered email id"
-              value={email}
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="enter your password"
-              value={password}
-              onChange={onChange}
-              required
-            />
-          </div>
-          <button type="submit" className="onLogin">
-            Login
-          </button>
-          <p>
-            Don't have an account? Register <Link to={"/register"}>here</Link>.
-          </p>
-        </form>
-      </div>
-    );
+      return (
+        <div className="login">
+          <form onSubmit={login}>
+            <div>
+              <label>Email Address</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="enter your reistered email id"
+                value={email}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="enter your password"
+                value={password}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <button type="submit" className="onLogin">
+              Login
+            </button>
+            <p>
+              Don't have an account? Register <Link to={"/register"}>here</Link>.
+            </p>
+          </form>
+        </div>
+      );
   }
 }
 
@@ -76,7 +76,7 @@ const mapState = ({login}) => ({login})
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: user => dispatch(onLogin(user))
+    onLogin: user => dispatch(onLogin(user)),
   };
 };
 
