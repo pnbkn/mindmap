@@ -21,10 +21,10 @@ class Subjects extends Component {
   }
 
   async componentDidMount() {
-    await store.dispatch(getSubjects());
-    const subjects = (
-      await axios.get(`/api/welcome/${this.props.match.params.id}`)
-    ).data;
+    const subjects = await store.dispatch(getSubjects());
+    // const subjects = (
+    //   await axios.get(`/api/welcome/${this.props.match.params.id}`)
+    // ).data;
     this.setState({ subjects });
   }
 
