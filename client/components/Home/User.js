@@ -5,17 +5,22 @@ import { Link } from "react-router-dom";
 
 class _Logout extends React.Component {
   render() {
-      return(
-        <div className="login">
-        <p>Hello! Welcome to mindmap!</p>
-          <div>
-            <button className="onLogin" onClick={ () => this.props.onLogout(this.props.login.user) } >
-            <Link to={"/"}>Logout</Link>.
-            </button>
-          </div>
+    return (
+      <div className="container">
+        <div className="logout">
+          <p>Your mind thanks you for mapping it.</p>
         </div>
-      )
-    }
+        <div>
+          <button
+            className="onLogout"
+            onClick={() => this.props.onLogout(this.props.login.user)}
+          >
+            <Link to={"/"}>Logout</Link>
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapDispatchToProps = dispatch => {
