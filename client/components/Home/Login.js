@@ -17,66 +17,65 @@ class _Login extends React.Component {
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
-  login = async(e) => {
-    e.preventDefault()
-    await this.props.onLogin(this.state)
-    console.log(this.props.login.user)
-    if(!this.props.login.user.id){
-      return "error message"
-    } 
-    else {
-      const id = this.props.login.user.id
-      this.props.history.push(`/welcome/${id}`)
+  login = async e => {
+    e.preventDefault();
+    await this.props.onLogin(this.state);
+    console.log(this.props.login.user);
+    if (!this.props.login.user.id) {
+      return "error message";
+    } else {
+      const id = this.props.login.user.id;
+      this.props.history.push(`/welcome/${id}`);
     }
-  }
+  };
 
   render() {
     const { email, password } = this.state;
     const { login } = this;
     const { onChange } = this;
 
-      return (
-        <div className="login">
-          <form onSubmit={login}>
-            <div>
-              <label>Email Address</label>
-              <input
-                name="email"
-                type="email"
-                placeholder="enter your reistered email id"
-                value={email}
-                onChange={onChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <input
-                name="password"
-                type="password"
-                placeholder="enter your password"
-                value={password}
-                onChange={onChange}
-                required
-              />
-            </div>
-            <button type="submit" className="onLogin">
-              Login
-            </button>
-            <p>
-              Don't have an account? Register <Link to={"/register"}>here</Link>.
-            </p>
-          </form>
-        </div>
-      );
+    return (
+      <div className="login">
+        <form onSubmit={login}>
+          <div>
+            <label>Email Address</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="enter your registered email id"
+              value={email}
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="enter your password"
+              value={password}
+              onChange={onChange}
+              required
+            />
+          </div>
+          <button type="submit" className="onLogin">
+            Login
+          </button>
+          <p>
+            Don't have an account? Register <Link to={"/register"}>here</Link>.
+          </p>
+        </form>
+      </div>
+    );
   }
 }
 
-const mapState = ({login}) => ({login})
+const mapState = ({ login }) => ({ login });
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: user => dispatch(onLogin(user)),
+    onLogin: user => dispatch(onLogin(user))
   };
 };
 
