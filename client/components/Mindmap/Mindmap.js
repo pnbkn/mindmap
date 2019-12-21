@@ -20,13 +20,13 @@ export default class MindMap {
   constructor(element, trees) {
     const table = generateTree(trees);
     const dataStructure = d3.hierarchy(table);
-    const treeLayout = d3.tree().size([500, 400]);
+    const treeLayout = d3.tree().size([600, 500]);
     const information = treeLayout(dataStructure);
     const svg = d3
       .select(element)
       .append("svg")
-      .attr("width", 500)
-      .attr("height", 500)
+      .attr("width", 600)
+      .attr("height", 600)
       .append("g")
       .attr("transform", "translate(20,20)");
     const connections = svg
