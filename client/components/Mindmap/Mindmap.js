@@ -18,6 +18,7 @@ const generateParents = (ideas, parent) => {
 
 export default class MindMap {
   constructor(element, trees) {
+    console.log("UPDATE TREE");
     const table = generateTree(trees);
     const dataStructure = d3.hierarchy(table);
     const treeLayout = d3.tree().size([600, 500]);
