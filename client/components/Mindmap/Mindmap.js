@@ -18,18 +18,17 @@ const generateParents = (ideas, parent) => {
 
 export default class MindMap {
   constructor(element, trees) {
-    console.log("UPDATE TREE");
     const table = generateTree(trees);
     const dataStructure = d3.hierarchy(table);
-    const treeLayout = d3.tree().size([600, 500]);
+    const treeLayout = d3.tree().size([350, 350]);
     const information = treeLayout(dataStructure);
     const svg = d3
       .select(element)
       .append("svg")
-      .attr("width", 600)
-      .attr("height", 600)
+      .attr("width", 500)
+      .attr("height", 500)
       .append("g")
-      .attr("transform", "translate(20,20)");
+      .attr("transform", "translate(30,30)");
     const connections = svg
       .append("g")
       .selectAll("line")
