@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as d3 from "d3";
 import store, {
   createNode,
   getNodes,
@@ -19,7 +18,8 @@ class Chat extends Component {
     this.state = {
       room: "APP",
       body: "",
-      subjectId: ""
+      subjectId: "",
+      ideaObj: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,6 +76,7 @@ class Chat extends Component {
     } else {
       return (
         <TreeWrapper
+          ideaObj={this.state.ideaObj}
           trees={this.props.trees}
           match={this.props.match.params.id}
         />
@@ -83,28 +84,20 @@ class Chat extends Component {
     }
   };
 
+  handleClick = e => {
+    let ideaObj = {
+      subjectId: this.props.match.params.id
+    };
+
+    if (e.target.tagName === "LI") {
+      console.log("CLICKED ON CHAT LIST");
+      const ideaChat = e.target.innerHTML;
+      ideaObj.idea = ideaChat;
+      this.setState({ ideaObj });
+    }
+  };
+
   render() {
-    let ideaObj = {};
-
-    const { postTree } = this.props;
-    setTimeout(() => {
-      const chatIdea = document.querySelector(".messages");
-      ideaObj.subjectId = this.props.match.params.id;
-      chatIdea.addEventListener("click", e => {
-        if (e.target.tagName === "LI") {
-          console.log("CLICKED ON CHAT LIST");
-          const ideaChat = e.target.innerHTML;
-          ideaObj.idea = ideaChat;
-        }
-      });
-      d3.selectAll("text").on("click", function(d) {
-        d3.select(this);
-
-        ideaObj.parentId = d.data.id;
-        postTree(ideaObj);
-      });
-    }, 0);
-
     return (
       <div className="container">
         <div className="row">
@@ -115,7 +108,7 @@ class Chat extends Component {
                   subject.id === this.props.match.params.id ? subject.name : ""
                 )}
               </h3>
-              <ul className={"messages"}>
+              <ul className={"messages"} onClick={this.handleClick}>
                 {this.props.nodes.map(node =>
                   this.props.match.params.id === node.subjectId ? (
                     <li
@@ -141,7 +134,7 @@ class Chat extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div id='send'>
+                <div id="send">
                   <button type="submit" className="btn-primary" id="chat-send">
                     Send
                   </button>
