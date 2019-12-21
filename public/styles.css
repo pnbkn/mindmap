@@ -210,6 +210,9 @@ form {
 .form-control {
   margin: 0;
 }
+.form-group {
+  padding: 0 !important;
+}
 
 input {
   background-color: white;
@@ -217,10 +220,11 @@ input {
   border: #ff5000 solid 0.5px;
   padding-left: 0.2rem;
 }
+#send {
+  margin: 0 !important;
+}
 
 .container {
-  margin-top: 25px;
-  font-size: 21px;
   text-align: center;
 
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */

@@ -123,8 +123,6 @@ class Chat extends Component {
                   )
                 )}
               </ul>
-              <br />
-              <br />
               <form method="post" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <input
@@ -136,7 +134,7 @@ class Chat extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div>
+                <div id='send'>
                   <button type="submit" className="btn-primary" id="chat-send">
                     Send
                   </button>
