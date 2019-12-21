@@ -36,6 +36,11 @@ class Chat extends Component {
       }
     });
   }
+  async componentDidUpdate() {
+    console.log("UPDATED");
+    this.renderTree;
+    // store.dispatch(getTrees());
+  }
 
   handleChange(ev) {
     this.setState({
@@ -65,6 +70,7 @@ class Chat extends Component {
   };
 
   renderTree = ev => {
+    console.log("RENDER TREE", ev);
     if (this.props.trees.length == 0) {
       return "No data yet";
     } else {
@@ -86,6 +92,7 @@ class Chat extends Component {
       ideaObj.subjectId = this.props.match.params.id;
       chatIdea.addEventListener("click", e => {
         if (e.target.tagName === "LI") {
+          console.log("CLICKED ON CHAT LIST");
           const ideaChat = e.target.innerHTML;
           ideaObj.idea = ideaChat;
         }
@@ -145,7 +152,9 @@ class Chat extends Component {
               <br />
             </div>
           </div>
-          <div className="col">{this.renderTree()}</div>
+          <div className="col" onClick={this.renderTree}>
+            {this.renderTree()}
+          </div>
         </div>
       </div>
     );

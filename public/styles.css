@@ -137,6 +137,7 @@ form {
   width: 50%;
   border-radius: 20px;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 .chatBubble:hover {
   color: #fff;

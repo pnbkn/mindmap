@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import MindMap from "./Mindmap";
 import { connect } from "react-redux";
-import store, { getTrees, getNodes } from "../../store/";
 
 class TreeWrapper extends Component {
   async componentDidMount() {
-    await store.dispatch(getTrees());
-    await store.dispatch(getNodes());
     const trees = await this.props.trees.filter(
       tree => tree.subjectId === this.props.match
     );
@@ -18,13 +15,11 @@ class TreeWrapper extends Component {
 }
 
 const mapStateToProps = state => ({
-  nodes: state.nodes,
   trees: state.trees
 });
 const mapDispatchToProps = dispatch => {
   return {
-    getTrees: () => dispatch(getTrees()),
-    getNodes: () => dispatch(getNodes())
+    getTrees: () => dispatch(getTrees())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TreeWrapper);
