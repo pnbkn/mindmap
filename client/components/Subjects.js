@@ -46,10 +46,9 @@ class Subjects extends Component {
   render() {
     const { name } = this.state;
     return (
-
       <div className="container">
-      <h2>Create New Project</h2>
-        <form id='createNewProject' onSubmit={e => this.create(e)}>
+        <h2>Create New Project</h2>
+        <form onSubmit={e => this.create(e)}>
           <input
             name="name"
             value={name}
@@ -58,7 +57,7 @@ class Subjects extends Component {
             }
           />
           <button type="submit" className="btn btn-primary" id="add-subject">
-            Create
+            Start Mapping
           </button>
         </form>
         <br />
