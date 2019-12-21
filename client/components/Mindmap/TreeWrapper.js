@@ -15,7 +15,6 @@ class TreeWrapper extends Component {
 }
 
 const mapStateToProps = state => ({
-  nodes: state.nodes,
   trees: state.trees
 });
 const mapDispatchToProps = dispatch => {
